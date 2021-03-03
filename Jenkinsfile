@@ -5,6 +5,9 @@ pipeline {
 
     stage("Build/Test: Frontend") {
       steps {
+        sh 'node -v'
+        sh 'yarn -v'
+        sh 'whoami'
         sh "yarn install"
         sh "yarn build"
       }
