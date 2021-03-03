@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
+
+  .outline {
+    border: solid white 3px;
+    border-radius: 15px;
+  }
+}
