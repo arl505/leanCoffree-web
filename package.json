@@ -1,23 +1,25 @@
 {
-  "name": "leancoffree",
+  "name": "tailwind",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^4.0.2",
+    "@craco/craco": "^6.1.1",
+    "@tailwindcss/postcss7-compat": "^2.0.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "postcss": "^8.2.6",
+    "autoprefixer": "^9",
+    "postcss": "^7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "watch:css": "postcss src/index.css -o src/main.css",
-    "start": "npm run watch:css && react-scripts start",
-    "build": "npm run watch:css && react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -37,10 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.2.4",
-    "postcss-cli": "^8.3.1",
-    "tailwindcss": "^2.0.3"
   }
 }

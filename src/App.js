@@ -1,3 +1,5 @@
+import Modal from './Modal'
+
 function App() {
   return (
     <div class="bg-gray-800 text-center text-gray-100 min-h-screen min-w-screen">
@@ -13,7 +15,7 @@ function App() {
 
         <br/>
 
-        <button class="p-3 outline hover:bg-gray-900"><h3>Create a new Lean Coffree session</h3></button><br/>
+        <Modal/>
         
         <br/>
 
