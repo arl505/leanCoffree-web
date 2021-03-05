@@ -10,7 +10,7 @@ export default function Splash() {
     return (
       <>
         <p className="my-4 text-gray-100 text-lg leading-relaxed">Enter session link below</p>
-        <input className="sm:w-96 text-black" type="text" placeholder={process.env.REACT_APP_FRONTEND_BASEURL + "/session/67caf957-d01a-4bf2-85db-a4d4bb0fb80e"}
+        <input className="p-1 sm:w-96 text-black" type="text" placeholder={process.env.REACT_APP_FRONTEND_BASEURL + "/session/67caf957-d01a-4bf2-85db-a4d4bb0fb80e"}
           value={input} onChange={e => setInput(e.target.value)}/>
       </>
     )
@@ -62,16 +62,16 @@ export default function Splash() {
   }
 
   return (
-    <div class="bg-gray-800 text-center text-gray-100 min-h-screen min-w-screen">
-      <div class="pt-3">
-        <div class="bg-gray-700 rounded-l-lg ml-5 p-3 text-left sm:pl-10">
+    <div className="bg-gray-800 text-center text-gray-100 min-h-screen min-w-screen">
+      <div className="pt-3">
+        <div className="bg-gray-700 rounded-l-lg ml-5 p-3 text-left sm:pl-10">
           <h1>Lean Coffree, a <b>free</b> Lean Coffee discussion tool</h1>
         </div> 
 
         <br/>
 
         {/*todo: replace the below div with a screenshot of app when done*/}
-        <div class="bg-red-600 w-85w h-48w max-h-50h m-auto outline"/>
+        <div className="bg-red-600 w-85w h-48w max-h-50h m-auto outline"/>
 
         <br/>
 

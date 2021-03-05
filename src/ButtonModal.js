@@ -33,7 +33,7 @@ export default function ButtonModal(props) {
   
   return (
     <>
-      <button class="p-3 outline hover:bg-gray-900" onClick={openModal}>
+      <button className="p-3 outline hover:bg-gray-900" onClick={openModal}>
         <h3>{props.entryButtonText}</h3>
       </button>
       <br/>
