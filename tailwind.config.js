@@ -1,21 +1,21 @@
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false,
   theme: {
     extend: {
       maxHeight: {
-        '50h': '50vh',
+        '50h': '50vh'
       },
       height: {
-        "48w": "48vw",
+        "48w": "48vw"
       },
       width: {
-        "85w": "85vw",
+        "85w": "85vw"
       }
-    },
+    }
   },
   variants: {
-    extend: {},
+    extend: {}
   },
-  plugins: [],
+  plugins: []
 }
