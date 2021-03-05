@@ -71,7 +71,7 @@ export default function Splash() {
         <br/>
 
         {/*todo: replace the below div with a screenshot of app when done*/}
-        <div className="bg-green-600 w-85w h-48w max-h-50h m-auto outline"/>
+        <div className="bg-red-600 w-85w h-48w max-h-50h m-auto outline"/>
 
         <br/>
 
