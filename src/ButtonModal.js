@@ -17,7 +17,7 @@ export default function ButtonModal(props) {
     setFadeBackground(false)
   }
 
-  let openModal = async () => {
+  let openModal = () => {
     setFadeType("opacity-1 fadeIn")
     setFadeBackground(true)
   }

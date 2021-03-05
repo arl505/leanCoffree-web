@@ -7,7 +7,7 @@ export default function Splash() {
     return (
       <>
         <p className="my-4 text-gray-100 text-lg leading-relaxed">Enter session link below</p>
-        <input className="sm:w-96" type="text" placeholder="https://leancoffree.com/session/67caf957-d01a-4bf2-85db-a4d4bb0fb80e"/>
+        <input className="sm:w-96 text-black" type="text" placeholder="https://leancoffree.com/session/67caf957-d01a-4bf2-85db-a4d4bb0fb80e"/>
       </>
     )
   }
