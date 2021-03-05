@@ -1,9 +1,16 @@
 import React from 'react'
-import Splash from './Splash'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Session from "./session/Session";
+import Splash from "./Splash";
 
 function App() {
   return (
-    <Splash/>
+    <Router>
+      <Switch>
+        <Route path="/session" component={Session}/>
+        <Route path="/" component={Splash}/>
+      </Switch>
+    </Router>
   );
 }
 
