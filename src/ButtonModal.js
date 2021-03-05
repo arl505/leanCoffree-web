@@ -21,6 +21,15 @@ export default function ButtonModal(props) {
     setFadeType("opacity-1 fadeIn")
     setFadeBackground(true)
   }
+
+  let submit = () => {
+    if (props.isModalInputValid === null || (props.isModalInputValid !== null && props.isModalInputValid(props.modalInput) === true)) {
+      closeModal()
+      props.modalCloseCallback()
+    } else {
+      alert("Invalid submission")
+    }
+  }
   
   return (
     <>
@@ -58,7 +67,7 @@ export default function ButtonModal(props) {
                 <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                   <button className="bg-green-500 text-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow mr-1 mb-1"
                     type="button"
-                    onClick={closeModal}>{props.submitButtonText}</button>
+                    onClick={submit}>{props.submitButtonText}</button>
                 </div>
               </div>
             </div>
