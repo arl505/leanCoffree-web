@@ -11,9 +11,6 @@ module.exports = {
       },
       width: {
         "85w": "85vw"
-      },
-      transitionProperty: {
-        'opacity': 'opacity'
       }
     }
   },
