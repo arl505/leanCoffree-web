@@ -7,17 +7,20 @@ export default function UseranmePromptModal(props) {
   const [usernameInput, setUsernameInput] = React.useState("");
 
   let createUsernamePromptBody = () => {
-    let disabled = props.isAlertVisible === true ? "disabled" : ""
-
     return (
       <>
         <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy" inputMode="search"
-          value={usernameInput} onChange={e => setUsernameInput(e.target.value)} onSubmit={blur}/>
+          value={usernameInput} onChange={e => setUsernameInput(e.target.value)} onKeyDown={blur}/>
       </>
     )
   }
 
-  let blur = (event) => {event.target.blur()}
+  let blur = (event) => {
+    if (event.key === "Enter") {
+      event.target.blur()
+      submitUsername()
+    }
+  }
 
   let isUsernameModalInputValid = () => {
     return usernameInput.length > 0

@@ -8,14 +8,20 @@ export default function JoinSessionButtonModal(props) {
   const [input, setInput] = React.useState("");
   
   let joinSessionModalBody = () => {
-    let disabled = props.isAlertVisible ? "disabled" : ""
     return (
       <>
         <p className="my-4 text-white text-lg leading-relaxed">Enter session link below</p>
         <input className="p-1 sm:w-96 text-black" type="text" placeholder={process.env.REACT_APP_FRONTEND_BASEURL + "/session/67caf957-d01a-4bf2-85db-a4d4bb0fb80e"}
-          value={input} onChange={e => setInput(e.target.value)} inputMode="search" disabled={disabled}/>
+          value={input} onChange={e => setInput(e.target.value)} inputMode="search" onKeyDown={blur}/>
       </>
     )
+  }
+
+  let blur = (event) => {
+    if (event.key === "Enter") {
+      event.target.blur()
+      joinSession()
+    }
   }
 
   let isModalInputValid = () => {
