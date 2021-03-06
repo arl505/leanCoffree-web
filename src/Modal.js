@@ -17,12 +17,7 @@ export default function Modal(props) {
 
   let submit = (e) => {
     e.preventDefault()
-    if (props.isModalInputValid === null || (props.isModalInputValid !== null && props.isModalInputValid() === true)) {
-      props.modalCloseCallback()
-    } else {
-      props.setAlertText("Invalid submission, please fix and retry")
-      props.setIsAlertVisible(true)
-    }
+    props.modalCloseCallback()
   }
 
   let exitButton = props.letEscape === true 

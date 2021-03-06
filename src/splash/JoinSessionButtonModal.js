@@ -66,8 +66,8 @@ export default function JoinSessionButtonModal(props) {
       </button>
 
       <Modal fadeType={isJoinModalOpen} setFadeType={setIsJoinModalOpen} headerText="Join Lean Coffree Session" submitButtonText="Join Session"
-          body={joinSessionModalBody} isModalInputValid={isModalInputValid} letEscape={true} isAlertVisible={props.isAlertVisible} setInput={setInput}
-          modalCloseCallback={joinSession} bodyProps="break-none" setAlertText={props.setAlertText} setIsAlertVisible={props.setIsAlertVisible}/>
+          body={joinSessionModalBody} letEscape={true} isAlertVisible={props.isAlertVisible} setInput={setInput}
+          modalCloseCallback={joinSession} bodyProps="break-none"/>
     </>
   )
 }

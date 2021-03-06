@@ -29,8 +29,7 @@ export default function CreateSessionButtonModal() {
       </div>
 
       <Modal fadeType={isCreateModalOpen} setFadeType={setIsCreateModalOpen} headerText="Create Lean Coffree Session" submitButtonText="Create Session"
-          body={createSessionModalBody} isModalInputValid={null}
-          modalCloseCallback={createSession} letEscape={true} bodyProps="break-none"/>
+          body={createSessionModalBody} modalCloseCallback={createSession} letEscape={true} bodyProps="break-none"/>
     </>
   )
 }

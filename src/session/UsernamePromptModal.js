@@ -53,8 +53,6 @@ export default function UseranmePromptModal(props) {
 
   return (
     <Modal fadeType={props.isUsernamePromptOpen} setFadeType={props.setIsUsernamePromptOpen} headerText="Enter your name" submitButtonText="Submit"
-      body={createUsernamePromptBody} isModalInputValid={isUsernameModalInputValid} modalCloseCallback={submitUsername}  
-      letEscape={false} isAlertVisible={props.isAlertVisible} bodyProps="break-none"
-      setAlertText={props.setAlertText} setIsAlertVisible={props.setIsAlertVisible}/>
+      body={createUsernamePromptBody} modalCloseCallback={submitUsername} letEscape={false} isAlertVisible={props.isAlertVisible} bodyProps="break-none"/>
   )
 }

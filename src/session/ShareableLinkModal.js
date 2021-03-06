@@ -21,7 +21,7 @@ export default function ShareableLinkModal(props) {
 
   return (
     <Modal fadeType={props.isShareableLinkOpen} setFadeType={props.setIsShareableLinkOpen} headerText="Shareable Link" submitButtonText="Close"
-      body={createShareableLinkBody} isModalInputValid={null} modalCloseCallback={()=>{props.setIsShareableLinkOpen("opacity-0 fadeOut")}} letEscape={true}
+      body={createShareableLinkBody} modalCloseCallback={()=>{props.setIsShareableLinkOpen("opacity-0 fadeOut")}} letEscape={true}
       bodyProps="break-all"/>
   )
 }
