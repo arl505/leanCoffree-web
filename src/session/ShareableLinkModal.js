@@ -5,7 +5,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 export default function ShareableLinkModal(props) {
 
   let createShareableLinkBody = () => {
-    let newSessionUrl = process.env.REACT_APP_FRONTEND_BASEURL + '/session/' + props.sessionId;
+    let newSessionUrl = 'http://dev.leancoffree.com' + '/session/' + props.sessionId;
     return (
       <>
         <p className="text-white text-lg leading-relaxed text-center">Your meeting link is</p>
@@ -21,6 +21,7 @@ export default function ShareableLinkModal(props) {
 
   return (
     <Modal fadeType={props.isShareableLinkOpen} setFadeType={props.setIsShareableLinkOpen} headerText="Shareable Link" submitButtonText="Close"
-      body={createShareableLinkBody} isModalInputValid={null} modalCloseCallback={()=>{}} letEscape={true}/>
+      body={createShareableLinkBody} isModalInputValid={null} modalCloseCallback={()=>{}} letEscape={true}
+      bodyProps="break-all"/>
   )
 }
