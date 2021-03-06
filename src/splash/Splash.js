@@ -15,7 +15,7 @@ export default function Splash(props) {
         {/*todo: replace the below div with a screenshot of app when done*/}
         <div className="bg-red-600 w-85w my-4 h-48w max-h-50h m-auto outline"/>
         
-        <CreateSessionButtonModal/>
+        <CreateSessionButtonModal setAlertText={props.setAlertText} isAlertVisible={props.isAlertVisible} setIsAlertVisible={props.setIsAlertVisible}/>
 
         <JoinSessionButtonModal setAlertText={props.setAlertText} isAlertVisible={props.isAlertVisible} setIsAlertVisible={props.setIsAlertVisible}/>
 

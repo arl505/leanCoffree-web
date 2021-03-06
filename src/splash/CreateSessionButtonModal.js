@@ -2,7 +2,7 @@ import React from 'react'
 import Axios from 'axios'
 import Modal from '../Modal'
 
-export default function CreateSessionButtonModal() {
+export default function CreateSessionButtonModal(props) {
 
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState("opacity-0 fadeOut")
 
@@ -16,7 +16,8 @@ export default function CreateSessionButtonModal() {
         window.location = process.env.REACT_APP_FRONTEND_BASEURL + '/session/' + response.data.id.toString();
       })
       .catch(function (error) {
-        console.log("Received an error while creating new session: " + error);
+        props.setAlertText("An error occurred, please try again")
+        props.setIsAlertVisible(true)
       });
   }
   
@@ -29,7 +30,7 @@ export default function CreateSessionButtonModal() {
       </div>
 
       <Modal fadeType={isCreateModalOpen} setFadeType={setIsCreateModalOpen} headerText="Create Lean Coffree Session" submitButtonText="Create Session"
-          body={createSessionModalBody} modalCloseCallback={createSession} letEscape={true} bodyProps="break-none"/>
+          body={createSessionModalBody} modalCloseCallback={createSession} letEscape={true} bodyProps="break-none" isAlertVisible={props.isAlertVisible} />
     </>
   )
 }
