@@ -12,6 +12,9 @@ module.exports = {
       width: {
         "85w": "85vw",
         '30w': '30vw'
+      },
+      zIndex: {
+        '1n': -1,
       }
     }
   },

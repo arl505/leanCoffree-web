@@ -4,7 +4,7 @@ import WebSocketClient from './WebSocketClient'
 import UseranmePromptModal from './UsernamePromptModal'
 import ShareableLinkModal from './ShareableLinkModal'
 
-export default function Session() {
+export default function Session(props) {
 
   const [sessionId, setSessionId] = React.useState("");
   const [sessionStatus, setSessionStatus] = React.useState("");
@@ -15,7 +15,6 @@ export default function Session() {
   const [connectToWebSocketServer, setConnectToWebSocketServer] = React.useState(false);
   const [isUsernamePromptOpen, setIsUsernamePromptOpen] = React.useState("opacity-0 fadeOut")
   const [isShareableLinkOpen, setIsShareableLinkOpen] = React.useState("opacity-0 fadeOut")
-
   
   React.useEffect(() => {
     if (sessionStatus === "" && sessionId === "") {
@@ -61,10 +60,11 @@ export default function Session() {
         : null}
 
       <UseranmePromptModal sessionId={sessionId} websocketUserId={websocketUserId} setSessionStatus={setSessionStatus}
-        setIsShareableLinkOpen={setIsShareableLinkOpen} isUsernamePromptOpen={isUsernamePromptOpen} setIsUsernamePromptOpen={setIsUsernamePromptOpen}/>
+        setIsShareableLinkOpen={setIsShareableLinkOpen} isUsernamePromptOpen={isUsernamePromptOpen} setIsUsernamePromptOpen={setIsUsernamePromptOpen}
+        isAlertVisible={props.isAlertVisible} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}/>
 
-      <ShareableLinkModal sessionId={sessionId} isShareableLinkOpen={isShareableLinkOpen} setIsShareableLinkOpen={setIsShareableLinkOpen}/>      
-      
+      <ShareableLinkModal sessionId={sessionId} isShareableLinkOpen={isShareableLinkOpen} setIsShareableLinkOpen={setIsShareableLinkOpen}/>
+
       Session Page!
       <br/>
       Session ID: {sessionId}

@@ -3,22 +3,25 @@ import React from "react";
 export default function Modal(props) {
 
   let handleMouseClick = (event) => {
-    if (props.letEscape === true && event.target.id === 'mainParent') {
+    if (props.letEscape === true && event.target.id === 'mainParent' && (props.isAlertVisible === undefined || props.isAlertVisible === false)) {
       closeModal()
     }
   }
 
   let closeModal = () => {
     props.setFadeType("opacity-0 fadeOut")
+    if(props.setInput !== undefined) {
+      props.setInput("")
+    }
   }
 
   let submit = (e) => {
     e.preventDefault()
     if (props.isModalInputValid === null || (props.isModalInputValid !== null && props.isModalInputValid() === true)) {
-      closeModal()
       props.modalCloseCallback()
     } else {
-      alert("Invalid submission")
+      props.setAlertText("Invalid submission, please fix and retry")
+      props.setIsAlertVisible(true)
     }
   }
 
@@ -33,7 +36,7 @@ export default function Modal(props) {
     {
       props.fadeType === "opacity-1 fadeIn"
         ? <>
-          <div className={props.fadeType + " justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"}
+          <div className={props.fadeType + " justify-center items-center flex overflow-x-hidden z-10 overflow-y-auto fixed inset-0 outline-none focus:outline-none"}
             onClick={handleMouseClick} id="mainParent">
             <div className="relative w-auto my-6 mx-5 max-w-3xl outline">
               
@@ -62,7 +65,7 @@ export default function Modal(props) {
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          <div className="opacity-25 fixed inset-0 bg-black"></div>
           </>
         : null
     }

@@ -2,7 +2,7 @@ import React from 'react'
 import JoinSessionButtonModal from './JoinSessionButtonModal'
 import CreateSessionButtonModal from './CreateSessionButtonModal'
 
-export default function Splash() {
+export default function Splash(props) {
 
   return (
     <div className="bg-gray-800 text-center text-gray-100 min-h-screen min-w-screen">
@@ -17,7 +17,7 @@ export default function Splash() {
         
         <CreateSessionButtonModal/>
 
-        <JoinSessionButtonModal/>
+        <JoinSessionButtonModal setAlertText={props.setAlertText} isAlertVisible={props.isAlertVisible} setIsAlertVisible={props.setIsAlertVisible}/>
 
       </div>
     </div>

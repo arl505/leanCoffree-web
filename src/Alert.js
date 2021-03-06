@@ -2,7 +2,6 @@ import React from "react";
 
 export default function Alert(props) {
 
-
   let closeAlert = () => {
     props.setIsVisible(false)
   }
@@ -12,7 +11,7 @@ export default function Alert(props) {
     {
       props.isVisible
         ? <>
-          <div className="justify-center items-start flex fixed inset-0 z-50 overflow-scroll">
+          <div className="justify-center items-start flex fixed inset-0 z-30 overflow-scroll">
             <div className="my-6">
               
               {/*content*/}
@@ -32,7 +31,7 @@ export default function Alert(props) {
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          <div className="opacity-50 fixed inset-0 z-20 bg-black"></div>
           </>
         : null
     }

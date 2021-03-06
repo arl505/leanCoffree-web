@@ -25,6 +25,10 @@
     animation-name: fadeout;
   }
 
+  input[type="text"]:disabled {
+    background: #ffffff;
+  }
+
   @keyframes fadein {
     from {
       display: none;
