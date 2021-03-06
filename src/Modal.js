@@ -48,7 +48,7 @@ export default function Modal(props) {
                 </div>
 
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
+                <div className="relative p-3 flex-auto">
                   {props.body()}
                 </div>
                 
