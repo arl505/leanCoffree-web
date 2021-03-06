@@ -1,6 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
-import WebSocketClient from '../WebSocketClient'
+import WebSocketClient from './WebSocketClient'
 
 export default function Session() {
 
