@@ -32,7 +32,7 @@ export default function Splash() {
     if(sessionGuid !== null) {
       Axios.post(process.env.REACT_APP_BACKEND_BASEURL + '/verify-session/' + sessionGuid, null)
         .then(function (response) {
-          if( response.data.verificationStatus === "VERIFICATION_SUCCESS" && response.data.sessionDetails.sessionId === sessionGuid[0]) {
+          if(response.data.verificationStatus === "VERIFICATION_SUCCESS" && response.data.sessionDetails.sessionId === sessionGuid[0]) {
             window.location = process.env.REACT_APP_FRONTEND_BASEURL + '/session/' + sessionGuid;
           } else {
             alert("Invalid entry")
