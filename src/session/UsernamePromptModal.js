@@ -9,19 +9,15 @@ export default function UseranmePromptModal(props) {
   let createUsernamePromptBody = () => {
     return (
       <>
-        <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy"
-          value={usernameInput} onChange={e => setUsernameInput(e.target.value)} onKeyPress={handleKeyPress}/>
+        <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy" inputMode="search"
+          value={usernameInput} onChange={e => setUsernameInput(e.target.value)} onKeyDown={blur}/>
       </>
     )
   }
 
-  let isUsernameModalInputValid = () => {
-    return usernameInput.length > 0
-  }
-
-  let handleKeyPress = (event) => {
-    if(event.key === 'Enter' && isUsernameModalInputValid() === true){
-      props.setIsUsernamePromptOpen('opacity-0 fadeOut')
+  let blur = (event) => {
+    if (event.key === "Enter") {
+      event.target.blur()
       submitUsername()
     }
   }
@@ -31,25 +27,28 @@ export default function UseranmePromptModal(props) {
       Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/refresh-users", {displayName: usernameInput, sessionId: props.sessionId, command: "ADD", websocketUserId: props.websocketUserId})
         .then((response) => {
           if(response.data.status !== "SUCCESS") {
-            alert(response.data.error);
+            props.setAlertText("An error occurred, please try again")
+            props.setIsAlertVisible(true)
           } else {
             props.setSessionStatus(response.data.sessionStatus)
+            props.setIsUsernamePromptOpen("opacity-0 fadeOut")
             response.data.showShareableLink === true 
               ? props.setIsShareableLinkOpen("opacity-1 fadeIn")
               : props.setIsShareableLinkOpen("opacity-0 fadeOut")
           }
         })
         .catch((error) => {
-          alert("Error while adding displayname to backend\n" + error)
+          props.setAlertText("An error occurred, please try again")
+          props.setIsAlertVisible(true)
         });
     } else {
-      alert("Invalid entry")
+      props.setAlertText("Invalid submission, please fix and retry")
+      props.setIsAlertVisible(true)
     }
   }
 
   return (
     <Modal fadeType={props.isUsernamePromptOpen} setFadeType={props.setIsUsernamePromptOpen} headerText="Enter your name" submitButtonText="Submit"
-        body={createUsernamePromptBody} isModalInputValid={isUsernameModalInputValid} modalCloseCallback={submitUsername} 
-        letEscape={false} bodyProps="break-none"/>
+      body={createUsernamePromptBody} modalCloseCallback={submitUsername} letEscape={false} isAlertVisible={props.isAlertVisible} bodyProps="break-none"/>
   )
 }

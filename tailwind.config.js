@@ -10,7 +10,8 @@ module.exports = {
         "48w": "48vw"
       },
       width: {
-        "85w": "85vw"
+        "85w": "85vw",
+        '30w': '30vw'
       }
     }
   },

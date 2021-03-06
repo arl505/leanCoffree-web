@@ -12,7 +12,7 @@ export default function ShareableLinkModal(props) {
         <p className="text-white text-lg leading-relaxed text-center">{newSessionUrl}</p>
         <div className="text-center">
           <CopyToClipboard text={newSessionUrl}>
-            <button className="mt-2 text-white text-lg leading-relaxed outline p-2">Copy to clipboard</button>
+            <button type="button" className="mt-2 text-white text-lg leading-relaxed outline p-2">Copy to clipboard</button>
           </CopyToClipboard>
         </div>
       </>
@@ -21,7 +21,7 @@ export default function ShareableLinkModal(props) {
 
   return (
     <Modal fadeType={props.isShareableLinkOpen} setFadeType={props.setIsShareableLinkOpen} headerText="Shareable Link" submitButtonText="Close"
-      body={createShareableLinkBody} isModalInputValid={null} modalCloseCallback={()=>{}} letEscape={true}
+      body={createShareableLinkBody} modalCloseCallback={()=>{props.setIsShareableLinkOpen("opacity-0 fadeOut")}} letEscape={true}
       bodyProps="break-all"/>
   )
 }
