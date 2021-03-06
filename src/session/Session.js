@@ -1,6 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
 import WebSocketClient from './WebSocketClient'
+import Modal from '../Modal'
 
 export default function Session() {
 
@@ -11,6 +12,9 @@ export default function Session() {
   const [usersInAttendance, setUsersInAttendance] = React.useState([]);
   const [websocketUserId, setWebsocketUserId] = React.useState("");
   const [connectToWebSocketServer, setConnectToWebSocketServer] = React.useState(false);
+  const [isUsernamePromptOpen, setIsUsernamePromptOpen] = React.useState("opacity-0 fadeOut")
+  const [usernameInput, setUsernameInput] = React.useState("");
+
   
   React.useEffect(() => {
     if (sessionStatus === "" && sessionId === "") {
@@ -34,6 +38,7 @@ export default function Session() {
             setConnectToWebSocketServer(true);
             setSessionId(response.data.sessionDetails.sessionId);
             setSessionStatus(status);
+            setIsUsernamePromptOpen("opacity-1 fadeIn")
           } else {
             return window.location = process.env.REACT_APP_FRONTEND_BASEURL;
           }
@@ -50,6 +55,32 @@ export default function Session() {
       && (response.data.sessionDetails.sessionStatus === "STARTED" || response.data.sessionDetails.sessionStatus === "DISCUSSING");
   }
 
+  let createUsernamePromptBody = () => {
+    return (
+      <>
+        <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy"
+          value={usernameInput} onChange={e => setUsernameInput(e.target.value)}/>
+      </>
+    )
+  }
+
+  let isUsernameModalInputValid = () => {
+    return usernameInput.length > 0
+  }
+
+  let submitUsername = () => {
+    Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/refresh-users", {displayName: usernameInput, sessionId: sessionId, command: "ADD", websocketUserId: websocketUserId})
+      .then((response) => {
+        if(response.data.status !== "SUCCESS") {
+          alert(response.data.error);
+        }
+      })
+      .catch((error) => {
+        alert("Error while adding displayname to backend\n" + error)
+      }); 
+  }
+  
+
   return (
     <div>
       {
@@ -58,6 +89,10 @@ export default function Session() {
               sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}/>
           : null
       }
+
+      <Modal fadeType={isUsernamePromptOpen} setFadeType={setIsUsernamePromptOpen} headerText="Enter your name" submitButtonText="Submit"
+        body={createUsernamePromptBody} modalInput={null} isModalInputValid={isUsernameModalInputValid}
+        modalCloseCallback={submitUsername} letEscape={false}/>
 
       Session Page!
       <br/>
