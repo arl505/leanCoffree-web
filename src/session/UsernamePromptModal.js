@@ -12,7 +12,7 @@ export default function UseranmePromptModal(props) {
     return (
       <>
         <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy" inputMode="search"
-          value={usernameInput} onChange={e => setUsernameInput(e.target.value)} onSubmit={blur} disabled={disabled}/>
+          value={usernameInput} onChange={e => setUsernameInput(e.target.value)} onSubmit={blur}/>
       </>
     )
   }
