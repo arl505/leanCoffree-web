@@ -25,7 +25,7 @@ export default function Alert(props) {
                 {/*footer*/}
                 <button onClick={closeAlert} className="w-full border-t py-2 bg-white rounded-b rounded-t hover:bg-gray-100">
                   <div className="text-center text-black font-bold uppercase text-sm">
-                    {props.buttonText}
+                    Okay
                   </div>
                 </button>
               </div>

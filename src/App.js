@@ -8,11 +8,10 @@ function App() {
 
   const [isAlertVisible, setIsAlertVisible] = React.useState(false);
   const [alertText, setAlertText] = React.useState("");
-  const [alertButtonText, setAlertButtonText] = React.useState("Okay");
 
   return (
     <div>
-      <Alert isVisible={isAlertVisible} setIsVisible={setIsAlertVisible} text={alertText} buttonText={alertButtonText}/>
+      <Alert isVisible={isAlertVisible} setIsVisible={setIsAlertVisible} text={alertText}/>
       <Router>
         <Switch>
         <Route path='/session' 
