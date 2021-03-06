@@ -13,7 +13,7 @@ pipeline {
     stage("Deploy: Frontend") {
       when {
         expression {
-           env.BRANCH_NAME == "forms"
+           env.BRANCH_NAME == "main"
         }
       }
       steps {
