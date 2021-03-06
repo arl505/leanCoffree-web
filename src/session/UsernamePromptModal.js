@@ -22,10 +22,6 @@ export default function UseranmePromptModal(props) {
     }
   }
 
-  let isUsernameModalInputValid = () => {
-    return usernameInput.length > 0
-  }
-
   let submitUsername = () => {
     if (usernameInput.length > 0) {
       Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/refresh-users", {displayName: usernameInput, sessionId: props.sessionId, command: "ADD", websocketUserId: props.websocketUserId})

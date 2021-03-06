@@ -24,10 +24,6 @@ export default function JoinSessionButtonModal(props) {
     }
   }
 
-  let isModalInputValid = () => {
-    return getSessionGuidFromUrlOrReturnNullIfInvalid(input) !== null
-  }
-
   let getSessionGuidFromUrlOrReturnNullIfInvalid = (sessionUrl) => {
     let matchedUrl = sessionUrl.match(process.env.REACT_APP_SESSION_REGEX);
     return matchedUrl === null

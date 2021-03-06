@@ -30,7 +30,7 @@ export default function CreateSessionButtonModal(props) {
       </div>
 
       <Modal fadeType={isCreateModalOpen} setFadeType={setIsCreateModalOpen} headerText="Create Lean Coffree Session" submitButtonText="Create Session"
-          body={createSessionModalBody} modalCloseCallback={createSession} letEscape={true} bodyProps="break-none" isAlertVisible={props.isAlertVisible} />
+          body={createSessionModalBody} modalCloseCallback={createSession} letEscape={true} bodyProps="break-none" isAlertVisible={props.isAlertVisible}/>
     </>
   )
 }
