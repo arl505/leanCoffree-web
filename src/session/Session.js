@@ -1,8 +1,8 @@
 import React from 'react'
 import Axios from 'axios'
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import WebSocketClient from './WebSocketClient'
-import Modal from '../Modal'
+import UseranmePromptModal from './UsernamePromptModal'
+import ShareableLinkModal from './ShareableLinkModal'
 
 export default function Session() {
 
@@ -14,7 +14,6 @@ export default function Session() {
   const [websocketUserId, setWebsocketUserId] = React.useState("");
   const [connectToWebSocketServer, setConnectToWebSocketServer] = React.useState(false);
   const [isUsernamePromptOpen, setIsUsernamePromptOpen] = React.useState("opacity-0 fadeOut")
-  const [usernameInput, setUsernameInput] = React.useState("");
   const [isShareableLinkOpen, setIsShareableLinkOpen] = React.useState("opacity-0 fadeOut")
 
   
@@ -54,66 +53,18 @@ export default function Session() {
       && (response.data.sessionDetails.sessionStatus === "STARTED" || response.data.sessionDetails.sessionStatus === "DISCUSSING");
   }
 
-  let createUsernamePromptBody = () => {
-    return (
-      <>
-        <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy"
-          value={usernameInput} onChange={e => setUsernameInput(e.target.value)}/>
-      </>
-    )
-  }
-
-  let isUsernameModalInputValid = () => {
-    return usernameInput.length > 0
-  }
-
-  let submitUsername = () => {
-    Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/refresh-users", {displayName: usernameInput, sessionId: sessionId, command: "ADD", websocketUserId: websocketUserId})
-      .then((response) => {
-        if(response.data.status !== "SUCCESS") {
-          alert(response.data.error);
-        } else {
-          setSessionStatus(response.data.sessionStatus)
-          response.data.showShareableLink === true 
-            ? setIsShareableLinkOpen("opacity-1 fadeIn")
-            : setIsShareableLinkOpen("opacity-0 fadeOut")
-        }
-      })
-      .catch((error) => {
-        alert("Error while adding displayname to backend\n" + error)
-      }); 
-  }
-  
-  let createShareableLinkBody = () => {
-    let newSessionUrl = process.env.REACT_APP_FRONTEND_BASEURL + '/session/' + sessionId;
-    return (
-      <>
-        <p className="text-white text-lg leading-relaxed text-center">Your meeting link is</p>
-        <p className="text-white text-lg leading-relaxed text-center">{newSessionUrl}</p>
-        <div className="text-center"><CopyToClipboard text={newSessionUrl}>
-          <button className="mt-2 text-white text-lg leading-relaxed outline p-2">Copy to clipboard</button>
-        </CopyToClipboard></div>
-      </>
-    )
-  }
-
   return (
     <div>
-      {
-        connectToWebSocketServer 
-          ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setCurrentTopicEndTime={setCurrentTopicEndTime} setWebsocketUserId={setWebsocketUserId}
-              sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}/>
-          : null
-      }
+      {connectToWebSocketServer 
+        ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setCurrentTopicEndTime={setCurrentTopicEndTime} setWebsocketUserId={setWebsocketUserId}
+            sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}/>
+        : null}
 
-      <Modal fadeType={isUsernamePromptOpen} setFadeType={setIsUsernamePromptOpen} headerText="Enter your name" submitButtonText="Submit"
-        body={createUsernamePromptBody} isModalInputValid={isUsernameModalInputValid}
-        modalCloseCallback={submitUsername} letEscape={false}/>
+      <UseranmePromptModal sessionId={sessionId} websocketUserId={websocketUserId} setSessionStatus={setSessionStatus}
+        setIsShareableLinkOpen={setIsShareableLinkOpen} isUsernamePromptOpen={isUsernamePromptOpen} setIsUsernamePromptOpen={setIsUsernamePromptOpen}/>
 
-      <Modal fadeType={isShareableLinkOpen} setFadeType={setIsShareableLinkOpen} headerText="Shareable Link" submitButtonText="Close"
-        body={createShareableLinkBody} isModalInputValid={null}
-        modalCloseCallback={()=>{}} letEscape={true}/>
-
+      <ShareableLinkModal sessionId={sessionId} isShareableLinkOpen={isShareableLinkOpen} setIsShareableLinkOpen={setIsShareableLinkOpen}/>      
+      
       Session Page!
       <br/>
       Session ID: {sessionId}
