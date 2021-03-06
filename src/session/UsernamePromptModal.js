@@ -10,7 +10,7 @@ export default function UseranmePromptModal(props) {
     return (
       <>
         <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy"
-          value={usernameInput} onChange={e => setUsernameInput(e.target.value)}/>
+          value={usernameInput} onChange={e => setUsernameInput(e.target.value)} onKeyPress={handleKeyPress}/>
       </>
     )
   }
@@ -19,21 +19,32 @@ export default function UseranmePromptModal(props) {
     return usernameInput.length > 0
   }
 
+  let handleKeyPress = (event) => {
+    if(event.key === 'Enter' && isUsernameModalInputValid() === true){
+      props.setIsUsernamePromptOpen('opacity-0 fadeOut')
+      submitUsername()
+    }
+  }
+
   let submitUsername = () => {
-    Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/refresh-users", {displayName: usernameInput, sessionId: props.sessionId, command: "ADD", websocketUserId: props.websocketUserId})
-      .then((response) => {
-        if(response.data.status !== "SUCCESS") {
-          alert(response.data.error);
-        } else {
-          props.setSessionStatus(response.data.sessionStatus)
-          response.data.showShareableLink === true 
-            ? props.setIsShareableLinkOpen("opacity-1 fadeIn")
-            : props.setIsShareableLinkOpen("opacity-0 fadeOut")
-        }
-      })
-      .catch((error) => {
-        alert("Error while adding displayname to backend\n" + error)
-      }); 
+    if (usernameInput.length > 0) {
+      Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/refresh-users", {displayName: usernameInput, sessionId: props.sessionId, command: "ADD", websocketUserId: props.websocketUserId})
+        .then((response) => {
+          if(response.data.status !== "SUCCESS") {
+            alert(response.data.error);
+          } else {
+            props.setSessionStatus(response.data.sessionStatus)
+            response.data.showShareableLink === true 
+              ? props.setIsShareableLinkOpen("opacity-1 fadeIn")
+              : props.setIsShareableLinkOpen("opacity-0 fadeOut")
+          }
+        })
+        .catch((error) => {
+          alert("Error while adding displayname to backend\n" + error)
+        });
+    } else {
+      alert("Invalid entry")
+    }
   }
 
   return (
