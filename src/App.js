@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Session from "./session/Session";
-import Splash from "./Splash";
+import Splash from "./splash/Splash";
 
 function App() {
   return (
