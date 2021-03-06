@@ -7,10 +7,12 @@ export default function UseranmePromptModal(props) {
   const [usernameInput, setUsernameInput] = React.useState("");
 
   let createUsernamePromptBody = () => {
+    let disabled = props.isAlertVisible === true ? "disabled" : ""
+
     return (
       <>
-        <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy" inputmode="search"
-          value={usernameInput} onChange={e => setUsernameInput(e.target.value)}/>
+        <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy" inputMode="search"
+          value={usernameInput} onChange={e => setUsernameInput(e.target.value)} disabled={disabled}/>
       </>
     )
   }
@@ -29,7 +31,6 @@ export default function UseranmePromptModal(props) {
           } else {
             props.setSessionStatus(response.data.sessionStatus)
             props.setIsUsernamePromptOpen("opacity-0 fadeOut")
-            setUsernameInput("")
             response.data.showShareableLink === true 
               ? props.setIsShareableLinkOpen("opacity-1 fadeIn")
               : props.setIsShareableLinkOpen("opacity-0 fadeOut")
@@ -48,7 +49,7 @@ export default function UseranmePromptModal(props) {
   return (
     <Modal fadeType={props.isUsernamePromptOpen} setFadeType={props.setIsUsernamePromptOpen} headerText="Enter your name" submitButtonText="Submit"
       body={createUsernamePromptBody} isModalInputValid={isUsernameModalInputValid} modalCloseCallback={submitUsername}  
-      letEscape={false} isAlertVisible={props.isAlertVisible} setInput={setUsernameInput}
-      bodyProps="break-none" setAlertText={props.setAlertText} setIsAlertVisible={props.setIsAlertVisible}/>
+      letEscape={false} isAlertVisible={props.isAlertVisible} bodyProps="break-none"
+      setAlertText={props.setAlertText} setIsAlertVisible={props.setIsAlertVisible}/>
   )
 }
