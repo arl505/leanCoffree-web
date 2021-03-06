@@ -56,7 +56,8 @@ export default function Session(props) {
     <div>
       {connectToWebSocketServer 
         ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setCurrentTopicEndTime={setCurrentTopicEndTime} setWebsocketUserId={setWebsocketUserId}
-            sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}/>
+            sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}
+            setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}/>
         : null}
 
       <UseranmePromptModal sessionId={sessionId} websocketUserId={websocketUserId} setSessionStatus={setSessionStatus}

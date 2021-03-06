@@ -40,7 +40,8 @@ class WebSocketClient extends React.Component {
           this.props.setWebsocketUserId(frame.headers['user-name']);
         }, 
         (error) => {
-          alert('Could not connect you: ' + error);
+          this.props.setAlertText("An error occurred, please refresh the page and try again")
+          this.props.setIsAlertVisible(true)
         }
       );
     }
