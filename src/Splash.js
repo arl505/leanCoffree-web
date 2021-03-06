@@ -85,11 +85,11 @@ export default function Splash() {
         </button>
 
         <Modal fadeType={isCreateModalOpen} setFadeType={setIsCreateModalOpen} headerText="Create Lean Coffree Session" submitButtonText="Create Session"
-          body={createSessionModalBody} modalInput={null} isModalInputValid={null}
+          body={createSessionModalBody} isModalInputValid={null}
           modalCloseCallback={createSession} letEscape={true}/>
         
         <Modal fadeType={isJoinModalOpen} setFadeType={setIsJoinModalOpen} headerText="Join Lean Coffree Session" submitButtonText="Join Session"
-          body={joinSessionModalBody} isModalInputValid={isModalInputValid} modalInput={input}
+          body={joinSessionModalBody} isModalInputValid={isModalInputValid}
           modalCloseCallback={joinSession} letEscape={true}/>
       </div>
     </div>

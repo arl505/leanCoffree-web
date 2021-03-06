@@ -40,7 +40,7 @@ export default function Modal(props) {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-gray-800 outline-none focus:outline-none">
                 
                 {/*header*/}
-                <div className="flex items-start text-white justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                <div className="flex items-start text-white justify-between p-3 border-b border-solid border-gray-300 rounded-t">
                   <h3 className="font-semibold mr-5">
                     {props.headerText}
                   </h3>
@@ -53,8 +53,8 @@ export default function Modal(props) {
                 </div>
                 
                 {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
-                  <button className="bg-green-500 text-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow mr-1 mb-1"
+                <div className="flex items-center justify-end p-3 border-t border-solid border-gray-300 rounded-b">
+                  <button className="bg-green-500 text-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow"
                     type="button"
                     onClick={submit}>{props.submitButtonText}</button>
                 </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import WebSocketClient from './WebSocketClient'
 import Modal from '../Modal'
 
@@ -14,6 +15,7 @@ export default function Session() {
   const [connectToWebSocketServer, setConnectToWebSocketServer] = React.useState(false);
   const [isUsernamePromptOpen, setIsUsernamePromptOpen] = React.useState("opacity-0 fadeOut")
   const [usernameInput, setUsernameInput] = React.useState("");
+  const [isShareableLinkOpen, setIsShareableLinkOpen] = React.useState("opacity-0 fadeOut")
 
   
   React.useEffect(() => {
@@ -32,12 +34,9 @@ export default function Session() {
       Axios.post(process.env.REACT_APP_BACKEND_BASEURL + '/verify-session/' + sessionIdFromAddress, null)
         .then((response) => {
           if(isVerificationResponseValid(response, sessionIdFromAddress[0])) {
-            let status = response.data.sessionDetails.sessionStatus === "STARTED"
-              ? "ASK_FOR_USERNAME_STARTED"
-              : "ASK_FOR_USERNAME_DISCUSSING";
             setConnectToWebSocketServer(true);
             setSessionId(response.data.sessionDetails.sessionId);
-            setSessionStatus(status);
+            setSessionStatus(response.data.sessionDetails.sessionStatus);
             setIsUsernamePromptOpen("opacity-1 fadeIn")
           } else {
             return window.location = process.env.REACT_APP_FRONTEND_BASEURL;
@@ -73,6 +72,11 @@ export default function Session() {
       .then((response) => {
         if(response.data.status !== "SUCCESS") {
           alert(response.data.error);
+        } else {
+          setSessionStatus(response.data.sessionStatus)
+          response.data.showShareableLink === true 
+            ? setIsShareableLinkOpen("opacity-1 fadeIn")
+            : setIsShareableLinkOpen("opacity-0 fadeOut")
         }
       })
       .catch((error) => {
@@ -80,6 +84,18 @@ export default function Session() {
       }); 
   }
   
+  let createShareableLinkBody = () => {
+    let newSessionUrl = process.env.REACT_APP_FRONTEND_BASEURL + '/session/' + sessionId;
+    return (
+      <>
+        <p className="text-white text-lg leading-relaxed text-center">Your meeting link is</p>
+        <p className="text-white text-lg leading-relaxed text-center">{newSessionUrl}</p>
+        <div className="text-center"><CopyToClipboard text={newSessionUrl}>
+          <button className="mt-2 text-white text-lg leading-relaxed outline p-2">Copy to clipboard</button>
+        </CopyToClipboard></div>
+      </>
+    )
+  }
 
   return (
     <div>
@@ -91,8 +107,12 @@ export default function Session() {
       }
 
       <Modal fadeType={isUsernamePromptOpen} setFadeType={setIsUsernamePromptOpen} headerText="Enter your name" submitButtonText="Submit"
-        body={createUsernamePromptBody} modalInput={null} isModalInputValid={isUsernameModalInputValid}
+        body={createUsernamePromptBody} isModalInputValid={isUsernameModalInputValid}
         modalCloseCallback={submitUsername} letEscape={false}/>
+
+      <Modal fadeType={isShareableLinkOpen} setFadeType={setIsShareableLinkOpen} headerText="Shareable Link" submitButtonText="Close"
+        body={createShareableLinkBody} isModalInputValid={null}
+        modalCloseCallback={()=>{}} letEscape={true}/>
 
       Session Page!
       <br/>
