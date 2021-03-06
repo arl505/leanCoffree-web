@@ -12,20 +12,13 @@ export default function JoinSJoinSessionButtonModalessionModal() {
       <>
         <p className="my-4 text-white text-lg leading-relaxed">Enter session link below</p>
         <input className="p-1 sm:w-96 text-black" type="text" placeholder={process.env.REACT_APP_FRONTEND_BASEURL + "/session/67caf957-d01a-4bf2-85db-a4d4bb0fb80e"}
-          value={input} onChange={e => setInput(e.target.value)} onKeyPress={handleKeyPress}/>
+          value={input} onChange={e => setInput(e.target.value)} inputmode="search"/>
       </>
     )
   }
 
   let isModalInputValid = () => {
     return getSessionGuidFromUrlOrReturnNullIfInvalid(input) !== null
-  }
-
-  let handleKeyPress = (event) => {
-    if(event.key === 'Enter' && isModalInputValid() === true) {
-      setIsJoinModalOpen('opacity-0 fadeOut')
-      joinSession()
-    }
   }
 
   let getSessionGuidFromUrlOrReturnNullIfInvalid = (sessionUrl) => {
@@ -44,15 +37,15 @@ export default function JoinSJoinSessionButtonModalessionModal() {
           if(response.data.verificationStatus === "VERIFICATION_SUCCESS" && response.data.sessionDetails.sessionId === sessionGuid[0]) {
             window.location = process.env.REACT_APP_FRONTEND_BASEURL + '/session/' + sessionGuid;
           } else {
-            alert("Invalid entry")
+            alert("Invalid submission")
           }
         })
         .catch(function (error) {
           console.log("Received an error while verifying session: " + error);
-          alert("Invalid entry")
+          alert("Invalid submission")
         });
     } else {
-      alert("Invalid entry")
+      alert("Invalid submission")
     }
   }
 

@@ -12,7 +12,7 @@ export default function ShareableLinkModal(props) {
         <p className="text-white text-lg leading-relaxed text-center">{newSessionUrl}</p>
         <div className="text-center">
           <CopyToClipboard text={newSessionUrl}>
-            <button className="mt-2 text-white text-lg leading-relaxed outline p-2">Copy to clipboard</button>
+            <button type="button" className="mt-2 text-white text-lg leading-relaxed outline p-2">Copy to clipboard</button>
           </CopyToClipboard>
         </div>
       </>

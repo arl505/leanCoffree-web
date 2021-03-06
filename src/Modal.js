@@ -12,7 +12,8 @@ export default function Modal(props) {
     props.setFadeType("opacity-0 fadeOut")
   }
 
-  let submit = () => {
+  let submit = (e) => {
+    e.preventDefault()
     if (props.isModalInputValid === null || (props.isModalInputValid !== null && props.isModalInputValid() === true)) {
       closeModal()
       props.modalCloseCallback()
@@ -47,17 +48,17 @@ export default function Modal(props) {
                   {exitButton}
                 </div>
 
-                {/*body*/}
-                <div className={"relative p-3 flex-auto " + props.bodyProps}>
-                  {props.body()}
-                </div>
-                
-                {/*footer*/}
-                <div className="flex items-center justify-end p-3 border-t border-solid border-gray-300 rounded-b">
-                  <button className="bg-green-500 text-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow"
-                    type="button"
-                    onClick={submit}>{props.submitButtonText}</button>
-                </div>
+                <form onSubmit={submit}>
+                  {/*body*/}
+                  <div className={"relative p-3 flex-auto " + props.bodyProps}>
+                    {props.body()}
+                  </div>
+                  
+                  {/*footer*/}
+                  <div className="flex items-center justify-end p-3 border-t border-solid border-gray-300 rounded-b">
+                    <button className="bg-green-500 text-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow">{props.submitButtonText}</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

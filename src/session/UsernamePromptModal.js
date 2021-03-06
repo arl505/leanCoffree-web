@@ -9,21 +9,14 @@ export default function UseranmePromptModal(props) {
   let createUsernamePromptBody = () => {
     return (
       <>
-        <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy"
-          value={usernameInput} onChange={e => setUsernameInput(e.target.value)} onKeyPress={handleKeyPress}/>
+        <input className="p-1 sm:w-96 text-black" type="text" placeholder="James Murphy" inputmode="search"
+          value={usernameInput} onChange={e => setUsernameInput(e.target.value)}/>
       </>
     )
   }
 
   let isUsernameModalInputValid = () => {
     return usernameInput.length > 0
-  }
-
-  let handleKeyPress = (event) => {
-    if(event.key === 'Enter' && isUsernameModalInputValid() === true){
-      props.setIsUsernamePromptOpen('opacity-0 fadeOut')
-      submitUsername()
-    }
   }
 
   let submitUsername = () => {
@@ -43,7 +36,7 @@ export default function UseranmePromptModal(props) {
           alert("Error while adding displayname to backend\n" + error)
         });
     } else {
-      alert("Invalid entry")
+      alert("Invalid submission")
     }
   }
 
