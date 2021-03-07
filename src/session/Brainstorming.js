@@ -4,12 +4,12 @@ import TopicCard from './TopicCard'
 
 export default function Brainstorming(props) {
 
-  const [topicInput, setTopicInput] = React.useState("");
+  const [topicInput, setTopicInput] = React.useState("")
   const [votesLeft, setVotesLeft] = React.useState(3)
 
   let getTopicFooter = (topic) => {
     let deleteButton = (props.username === topic.authorDisplayName || props.users.moderator.includes(props.username))
-      ? <button onClick={() => deleteTopic(topic)} className="outline p-1 text-sm">Delete</button>
+      ? <button onClick={() => confirmDeleteTopic(topic)} className="outline p-1 text-sm">Delete</button>
       : null
     
     let votingButton = null;
@@ -47,30 +47,38 @@ export default function Brainstorming(props) {
           if(response.data.status === "SUCCESS") {
             setTopicInput("")
           } else {
-            alert(response.data.error);
+            props.setAlertText("Invalid submission, please fix and retry")
+            props.setIsAlertVisible(true)
           }
         })
-        .catch((error) => 
-          alert("Unable to subit discussion topic\n" + error)
-        );
+        .catch((error) => {
+          props.setAlertText("An error occurred, please try again")
+          props.setIsAlertVisible(true)
+        });
     } else {
       props.setAlertText("Invalid submission, please fix and retry")
       props.setIsAlertVisible(true)
     }
   }
 
-  let deleteTopic = (topic) => {
-    // if(window.confirm("Confirm if you'd like to delete the following topic: " + topic.text)) {
-      Axios.post(process.env.REACT_APP_BACKEND_BASEURL + '/delete-topic', {sessionId: props.sessionId, topicText: topic.text, authorName: topic.authorDisplayName})
-        .then((response) => {
-          if(response.data.status !== "SUCCESS") {
-            alert(response.data.error);
-          }
-        })
-        .catch((error) => 
-          alert("Unable to delete topic\n" + error)
-        );
-    // }
+  let confirmDeleteTopic = (topic) => {
+    props.setAlertText("Confirm deletion of following topic: " + topic.text)
+    props.setConfirmationCallback(() => () => deleteTopic(topic.text, topic.authorDisplayName));
+    props.setIsAlertVisible(true)
+  }
+
+  let deleteTopic = (text, authorDisplayName) => {
+    Axios.post(process.env.REACT_APP_BACKEND_BASEURL + '/delete-topic', {sessionId: props.sessionId, topicText: text, authorName: authorDisplayName})
+      .then((response) => {
+        if(response.data.status !== "SUCCESS") {
+          props.setAlertText("Invalid submission, please fix and retry")
+          props.setIsAlertVisible(true)
+        }
+      })
+      .catch((error) => {
+        props.setAlertText("An error occurred, please try again")
+        props.setIsAlertVisible(true)
+      });
   }
 
   let createTopicsDisplay = () => {
@@ -106,14 +114,15 @@ export default function Brainstorming(props) {
     Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/post-vote", {command: commandType, sessionId: props.sessionId, text: topicText, voterDisplayName: props.username, authorDisplayName: authorDisplayName})
       .then((response) => {
         if(response.data.status !== "SUCCESS") {
-          alert(response.data.error);
+          props.setAlertText("Invalid submission, please fix and retry")
+          props.setIsAlertVisible(true)
         }
       })
-      .catch((error) => 
-        alert("Unable to submit vote\n" + error)
-      );
+      .catch((error) => {
+        props.setAlertText("An error occurred, please try again")
+        props.setIsAlertVisible(true)
+      });
   }
-
 
   return (
       <div className="sm:inline-grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-10 sm:justify-items-center">{createTopicsDisplay()}</div>

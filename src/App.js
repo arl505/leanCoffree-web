@@ -8,15 +8,16 @@ function App() {
 
   const [isAlertVisible, setIsAlertVisible] = React.useState(false);
   const [alertText, setAlertText] = React.useState("");
+  const [confirmationCallback, setConfirmationCallback] = React.useState(() => {})
 
   return (
     <div>
-      <Alert isVisible={isAlertVisible} setIsVisible={setIsAlertVisible} text={alertText}/>
+      <Alert isVisible={isAlertVisible} setIsVisible={setIsAlertVisible} text={alertText} confirmationCallback={confirmationCallback}/>
       <Router>
         <Switch>
         <Route path='/session' 
             render={(props) => (
-              <Session {...props} isAlertVisible={isAlertVisible} setIsAlertVisible={setIsAlertVisible} setAlertText={setAlertText}/>
+              <Session {...props} isAlertVisible={isAlertVisible} setIsAlertVisible={setIsAlertVisible} setAlertText={setAlertText} setConfirmationCallback={setConfirmationCallback}/>
             )}
           />
           <Route path='/' 

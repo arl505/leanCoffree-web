@@ -64,7 +64,7 @@ export default function Session(props) {
 
         {/*Active Tab*/}
         <Brainstorming topics={topics} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}
-          sessionId={sessionId} username={username} users={usersInAttendance}/>
+          sessionId={sessionId} username={username} users={usersInAttendance} setConfirmationCallback={props.setConfirmationCallback}/>
 
         {connectToWebSocketServer 
           ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setCurrentTopicEndTime={setCurrentTopicEndTime} setWebsocketUserId={setWebsocketUserId}
