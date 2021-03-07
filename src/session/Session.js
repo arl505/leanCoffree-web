@@ -68,7 +68,7 @@ export default function Session(props) {
 
         <ShareableLinkModal sessionId={sessionId} isShareableLinkOpen={isShareableLinkOpen} setIsShareableLinkOpen={setIsShareableLinkOpen}/>
 
-        <NavBar shortText={true} showUserButton={true}/>
+        <NavBar shortText={true} showUserButton={true} users={usersInAttendance}/>
       </div>
     </div>
   )
