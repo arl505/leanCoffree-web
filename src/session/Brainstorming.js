@@ -5,9 +5,27 @@ import TopicCard from './TopicCard'
 export default function Brainstorming(props) {
 
   const [topicInput, setTopicInput] = React.useState("");
+  const [votesLeft, setVotesLeft] = React.useState(3)
 
-  let getTopicFooter = () => {
-    return <div/>
+  let getTopicFooter = (topic) => {
+    let deleteButton = (props.username === topic.authorDisplayName || props.users.moderator.includes(props.username))
+      ? <button onClick={() => deleteTopic(topic)} className="outline p-1 text-sm">Delete</button>
+      : null
+    
+    let votingButton = null;
+    if (topic.voters.includes(props.username)) {
+      votingButton = <button className="outline p-1 text-sm" onClick={() => postVoteForTopic(topic.text, 'UNCAST', topic.authorDisplayName)}>Un-Vote</button>
+    } else if (votesLeft > 0) {
+      votingButton = <button className="outline p-1 text-sm" onClick={() => postVoteForTopic(topic.text, 'CAST', topic.authorDisplayName)}>Vote</button>
+    }
+
+    return (
+      <div className="flex h-full justify-between">
+        <p className="self-center">Votes: {topic.voters.length}</p>
+        {votingButton}
+        {deleteButton}
+      </div>
+    )
   }
 
   let composeBody = () => {
@@ -16,7 +34,7 @@ export default function Brainstorming(props) {
 
   let composeFooter = () => {
     return (
-      <div className="text-right">
+      <div className="flex justify-end">
         <button onClick={submitTopic} className="outline p-1 text-sm">Submit</button>
       </div>
     )
@@ -41,19 +59,61 @@ export default function Brainstorming(props) {
     }
   }
 
+  let deleteTopic = (topic) => {
+    // if(window.confirm("Confirm if you'd like to delete the following topic: " + topic.text)) {
+      Axios.post(process.env.REACT_APP_BACKEND_BASEURL + '/delete-topic', {sessionId: props.sessionId, topicText: topic.text, authorName: topic.authorDisplayName})
+        .then((response) => {
+          if(response.data.status !== "SUCCESS") {
+            alert(response.data.error);
+          }
+        })
+        .catch((error) => 
+          alert("Unable to delete topic\n" + error)
+        );
+    // }
+  }
+
   let createTopicsDisplay = () => {
     let topics = props.topics.discussionBacklogTopics
     let topicsElements = []
+
+    tabulateVotesLeft()
 
     topicsElements.push(<TopicCard isCompose={true} topicBody={composeBody()} topicFooter={composeFooter()}/>)
 
     for (let i = 0; topics !== undefined && i < topics.length; i++) {
       let currTopicText = topics[i].text
-      topicsElements.push(<TopicCard topicBody={currTopicText} topicFooter={getTopicFooter()}/>)
+      topicsElements.push(<TopicCard topicBody={currTopicText} topicFooter={getTopicFooter(topics[i])}/>)
     }
     
     return topicsElements;
   }
+
+  let tabulateVotesLeft = () => {
+    let topics = props.topics.discussionBacklogTopics
+    let votesCast = 0
+    for (let i = 0; topics !== undefined && i < topics.length; i++) {
+      if (topics[i].voters.includes(props.username)) {
+        votesCast += 1
+      }
+    }
+    if (votesLeft !== 3 - votesCast) {
+      setVotesLeft(3 - votesCast)
+    }
+  }
+
+  let postVoteForTopic = (topicText, commandType, authorDisplayName) => {
+    Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/post-vote", {command: commandType, sessionId: props.sessionId, text: topicText, voterDisplayName: props.username, authorDisplayName: authorDisplayName})
+      .then((response) => {
+        if(response.data.status !== "SUCCESS") {
+          alert(response.data.error);
+        }
+      })
+      .catch((error) => 
+        alert("Unable to submit vote\n" + error)
+      );
+  }
+
 
   return (
       <div className="sm:inline-grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-10 sm:justify-items-center">{createTopicsDisplay()}</div>
