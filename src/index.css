@@ -25,6 +25,12 @@
     animation-name: fadeout;
   }
 
+  .flexedImage {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+
   @keyframes fadein {
     from {
       display: none;
