@@ -11,8 +11,8 @@ export default function Alert(props) {
     {
       props.isVisible
         ? <>
-          <div className="justify-center items-start flex fixed inset-0 z-30 overflow-scroll">
-            <div className="my-6">
+          <div className="justify-center items-center flex fixed inset-0 z-30 overflow-scroll">
+            <div>
               
               {/*content*/}
               <div className="rounded-lg bg-white sm:w-30w w-85w">
