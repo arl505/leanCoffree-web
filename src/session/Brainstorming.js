@@ -45,7 +45,7 @@ export default function Brainstorming(props) {
     let topics = props.topics.discussionBacklogTopics
     let topicsElements = []
 
-    topicsElements.push(<TopicCard topicBody={composeBody()} topicFooter={composeFooter()}/>)
+    topicsElements.push(<TopicCard isCompose={true} topicBody={composeBody()} topicFooter={composeFooter()}/>)
 
     for (let i = 0; topics !== undefined && i < topics.length; i++) {
       let currTopicText = topics[i].text
