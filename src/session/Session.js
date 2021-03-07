@@ -17,6 +17,7 @@ export default function Session(props) {
   const [connectToWebSocketServer, setConnectToWebSocketServer] = React.useState(false);
   const [isUsernamePromptOpen, setIsUsernamePromptOpen] = React.useState("opacity-0 fadeOut")
   const [isShareableLinkOpen, setIsShareableLinkOpen] = React.useState("opacity-0 fadeOut")
+  const [username, setUsername] = React.useState("")
   
   React.useEffect(() => {
     if (sessionStatus === "" && sessionId === "") {
@@ -62,7 +63,8 @@ export default function Session(props) {
         <NavBar shortText={true} showUserButton={true} users={usersInAttendance}/>
 
         {/*Active Tab*/}
-        <Brainstorming topics={topics}/>
+        <Brainstorming topics={topics} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}
+          sessionId={sessionId} username={username}/>
 
         {connectToWebSocketServer 
           ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setCurrentTopicEndTime={setCurrentTopicEndTime} setWebsocketUserId={setWebsocketUserId}
@@ -73,7 +75,7 @@ export default function Session(props) {
         {/*Background or alway present helpers*/}
         <UseranmePromptModal sessionId={sessionId} websocketUserId={websocketUserId} setSessionStatus={setSessionStatus}
           setIsShareableLinkOpen={setIsShareableLinkOpen} isUsernamePromptOpen={isUsernamePromptOpen} setIsUsernamePromptOpen={setIsUsernamePromptOpen}
-          isAlertVisible={props.isAlertVisible} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}/>
+          isAlertVisible={props.isAlertVisible} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} setUsername={setUsername}/>
 
         <ShareableLinkModal sessionId={sessionId} isShareableLinkOpen={isShareableLinkOpen} setIsShareableLinkOpen={setIsShareableLinkOpen}/>
 
