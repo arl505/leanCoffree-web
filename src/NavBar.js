@@ -20,9 +20,9 @@ export default function NavBar(props) {
     setIsUsersModalOpen("opacity-1 fadeIn")
   }
 
-  let usersButton = props.showUserButton === true
-    ? <button onClick={displayUsers}><img className="flexedImage w-10" src={usersImage} alt="user list button icon, silhouette of 3 people"/></button>
-    : null;
+  let usersButtonVisibility = props.showUserButton === true
+    ? ""
+    : "w-0";
 
   let usersModalBody = () => {
     if(props.users !== undefined) {
@@ -41,9 +41,11 @@ export default function NavBar(props) {
   
   return (
     <div className="bg-gray-700 rounded-l-lg ml-5 p-3 flex justify-between items-center sm:pl-10 sm:pr-20">
-      <h1>{headingButtonText}</h1>
+      <h1 className="text-left" >{headingButtonText}</h1>
 
-      {usersButton}
+      <button className={usersButtonVisibility} onClick={displayUsers}>
+        <img className="h-10" src={usersImage} alt="user list button icon, silhouette of 3 people"/>
+      </button>
 
       <Modal fadeType={isUsersModalOpen} setFadeType={setIsUsersModalOpen} headerText="Attending Users" 
           body={usersModalBody} letEscape={true} bodyProps="break-none" submitButtonText="Close"

@@ -56,6 +56,9 @@ export default function Session(props) {
   return (
     <div className="bg-gray-800 text-center text-gray-100 min-h-screen min-w-screen">
       <div className="pt-3">
+  
+        <NavBar shortText={true} showUserButton={true} users={usersInAttendance}/>
+  
         {connectToWebSocketServer 
           ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setCurrentTopicEndTime={setCurrentTopicEndTime} setWebsocketUserId={setWebsocketUserId}
               sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}
@@ -68,7 +71,6 @@ export default function Session(props) {
 
         <ShareableLinkModal sessionId={sessionId} isShareableLinkOpen={isShareableLinkOpen} setIsShareableLinkOpen={setIsShareableLinkOpen}/>
 
-        <NavBar shortText={true} showUserButton={true} users={usersInAttendance}/>
       </div>
     </div>
   )
