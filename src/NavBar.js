@@ -21,7 +21,7 @@ export default function NavBar(props) {
   }
 
   let nextSectionButtonVisiblity = props.showNextSectionButton === true
-    ? "hidden sm:inline-block"
+    ? "hidden sm:inline-block outline p-1"
     : "hidden";
 
   let usersButtonVisibility = props.showUserButton === true
@@ -47,11 +47,11 @@ export default function NavBar(props) {
     <div className="bg-gray-700 rounded-l-lg ml-5 p-3 flex justify-between items-center sm:pl-10 sm:pr-20">
       <h1>{headingButtonText}</h1>
 
-      <button onClick={props.confirmTransitionToNextSection} className={nextSectionButtonVisiblity}>Next Section</button>
-
       <button className={usersButtonVisibility} onClick={displayUsers}>
         <img className="h-10" src={usersImage} alt="user list button icon, silhouette of 3 people"/>
       </button>
+
+      <button onClick={props.confirmTransitionToNextSection} className={nextSectionButtonVisiblity}>Next Section</button>
 
       <Modal fadeType={isUsersModalOpen} setFadeType={setIsUsersModalOpen} headerText="Attending Users" 
           body={usersModalBody} letEscape={true} bodyProps="break-none" submitButtonText="Close"

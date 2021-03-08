@@ -78,7 +78,7 @@ export default function Session(props) {
     }
   }
 
-  let showNextSectionButton = topics.discussionBacklogTopics !== undefined && topics.discussionBacklogTopics.length > 1 && sessionStatus === "STARTED"
+  let showNextSectionButton = topics.discussionBacklogTopics !== undefined && topics.discussionBacklogTopics.length > 1 && sessionStatus === "STARTED" && usersInAttendance.moderator.includes(username)
 
   return (
     <div className="bg-gray-800 text-center text-gray-100 min-h-screen min-w-screen">
