@@ -93,7 +93,7 @@ export default function Session(props) {
             ? <Brainstorming topics={topics} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} 
                 sessionStatus={sessionStatus} sessionId={sessionId} username={username} users={usersInAttendance} 
                 setConfirmationCallback={props.setConfirmationCallback} confirmTransitionToNextSection={confirmTransitionToNextSection}/>
-            : <Discussion/>
+            : <Discussion topics={topics}/>
         }
 
         {/*Background or alway present helpers*/}
