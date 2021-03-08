@@ -7,25 +7,26 @@ export default function Alert(props) {
     if (props.confirmationCallback !== undefined && confirmed === true) {
       props.confirmationCallback()
     }
+    props.wipeCallback()
   }
 
   let footer = props.confirmationCallback !== undefined
     ? (
         <div className="w-full h-full border-t bg-white rounded-b rounded-t">
-          <button onClick={() => closeAlert(false)} className="w-1/2 h-full border-r">
-            <div className="w-full h-full py-2 text-center text-black font-bold uppercase text-sm hover:bg-gray-100 rounded-b">              
+          <button onClick={() => closeAlert(false)} className="w-1/2 h-full border-r hover:bg-gray-100 focus:bg-gray-200">
+            <div className="w-full h-full py-2 text-center text-black font-bold uppercase text-sm rounded-b">              
               Cancel
             </div>
           </button>
 
-          <button onClick={() => closeAlert(true)} className="w-1/2 h-full">
-            <div className="w-full h-full py-2 text-center text-black font-bold uppercase text-sm hover:bg-gray-100 rounded-b">              
+          <button onClick={() => closeAlert(true)} className="w-1/2 h-full hover:bg-gray-100 focus:bg-gray-200">
+            <div className="w-full h-full py-2 text-center text-black font-bold uppercase text-sm rounded-b">              
               Confirm
             </div>
           </button>
         </div>
       )
-    : <button onClick={() => closeAlert(true)} className="w-full border-t py-2 bg-white rounded-b rounded-t hover:bg-gray-100">
+    : <button onClick={() => closeAlert(true)} className="w-full border-t py-2 bg-white rounded-b rounded-t hover:bg-gray-100 focus:bg-gray-200">
         <div className="text-center text-black font-bold uppercase text-sm">
           Okay
         </div>

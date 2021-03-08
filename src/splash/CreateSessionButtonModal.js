@@ -24,7 +24,7 @@ export default function CreateSessionButtonModal(props) {
   return (
     <>
       <div className="pb-4">
-        <button className="p-3 outline hover:bg-gray-900" onClick={() => setIsCreateModalOpen("opacity-1 fadeIn")}>
+        <button className="p-3 outline hover:bg-gray-900 focus:bg-black" onClick={() => setIsCreateModalOpen("opacity-1 fadeIn")}>
           <h3>Create a new Lean Coffree session</h3>
         </button>
       </div>

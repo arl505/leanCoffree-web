@@ -57,7 +57,7 @@ export default function JoinSessionButtonModal(props) {
 
   return (
     <>
-      <button className="p-3 outline hover:bg-gray-900" onClick={() => setIsJoinModalOpen("opacity-1 fadeIn")}>
+      <button className="p-3 outline hover:bg-gray-900 focus:bg-black" onClick={() => setIsJoinModalOpen("opacity-1 fadeIn")}>
         <h3>Join a Lean Coffree session</h3>
       </button>
 

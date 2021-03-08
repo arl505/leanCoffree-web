@@ -10,6 +10,18 @@
     @apply text-xl;
   }
 
+  button:focus {
+    outline: 0;
+  }
+
+  .imgTint:hover {
+      filter: brightness(75%);
+  }
+
+  .imgTint:focus {
+    filter: brightness(50%);
+  }
+
   .outline {
     border: solid white 3px;
     border-radius: 15px;

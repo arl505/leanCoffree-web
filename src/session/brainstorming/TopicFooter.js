@@ -38,15 +38,15 @@ export default function TopicFooter(props) {
   }
 
   let deleteButton = (props.username === props.topic.authorDisplayName || props.users.moderator.includes(props.username))
-      ? <button onClick={() => confirmDeleteTopic(props.topic)} className="outline p-1 text-sm">Delete</button>
+      ? <button onClick={() => confirmDeleteTopic(props.topic)} className="hover:bg-gray-900 focus:bg-black outline p-1 text-sm">Delete</button>
       : null
     
   let votingButton = () => {
     let button = null
     if (props.topic.voters.includes(props.username)) {
-      button = <button className="outline p-1 text-sm" onClick={() => postVoteForTopic(props.topic.text, 'UNCAST', props.topic.authorDisplayName)}>Un-Vote</button>
+      button = <button className="hover:bg-gray-900 focus:bg-black outline p-1 text-sm" onClick={() => postVoteForTopic(props.topic.text, 'UNCAST', props.topic.authorDisplayName)}>Un-Vote</button>
     } else if (props.votesLeft > 0) {
-      button = <button className="outline p-1 text-sm" onClick={() => postVoteForTopic(props.topic.text, 'CAST', props.topic.authorDisplayName)}>Vote</button>
+      button = <button className="hover:bg-gray-900 focus:bg-black outline p-1 text-sm" onClick={() => postVoteForTopic(props.topic.text, 'CAST', props.topic.authorDisplayName)}>Vote</button>
     }
     return button
   }

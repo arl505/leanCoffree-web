@@ -21,8 +21,8 @@ export default function Modal(props) {
   }
 
   let exitButton = props.letEscape === true 
-    ? <button onClick={closeModal}>
-        <span className="text-white font-semibold">X</span>
+    ? <button className="text-white hover:text-gray-100 focus:text-gray-500" onClick={closeModal}>
+        <p className="font-semibold">X</p>
       </button>
     : null;
   
@@ -54,7 +54,7 @@ export default function Modal(props) {
                   
                   {/*footer*/}
                   <div className="flex items-center justify-end p-3 border-t border-solid border-gray-300 rounded-b">
-                    <button className="bg-green-500 text-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow">{props.submitButtonText}</button>
+                    <button className="bg-green-500 text-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:bg-green-600 focus:bg-green-700">{props.submitButtonText}</button>
                   </div>
                 </form>
               </div>
