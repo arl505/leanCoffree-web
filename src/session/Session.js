@@ -4,6 +4,7 @@ import WebSocketClient from './WebSocketClient'
 import UseranmePromptModal from './UsernamePromptModal'
 import ShareableLinkModal from './ShareableLinkModal'
 import NavBar from '../NavBar'
+import Brainstorming from './brainstorming/Brainstorming'
 
 export default function Session(props) {
 
@@ -16,6 +17,7 @@ export default function Session(props) {
   const [connectToWebSocketServer, setConnectToWebSocketServer] = React.useState(false);
   const [isUsernamePromptOpen, setIsUsernamePromptOpen] = React.useState("opacity-0 fadeOut")
   const [isShareableLinkOpen, setIsShareableLinkOpen] = React.useState("opacity-0 fadeOut")
+  const [username, setUsername] = React.useState("")
   
   React.useEffect(() => {
     if (sessionStatus === "" && sessionId === "") {
@@ -57,17 +59,23 @@ export default function Session(props) {
     <div className="bg-gray-800 text-center text-gray-100 min-h-screen min-w-screen">
       <div className="pt-3">
   
+        {/*Nav Bar*/}
         <NavBar shortText={true} showUserButton={true} users={usersInAttendance}/>
-  
+
+        {/*Active Tab*/}
+        <Brainstorming topics={topics} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}
+          sessionId={sessionId} username={username} users={usersInAttendance} setConfirmationCallback={props.setConfirmationCallback}/>
+
         {connectToWebSocketServer 
           ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setCurrentTopicEndTime={setCurrentTopicEndTime} setWebsocketUserId={setWebsocketUserId}
               sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}
               setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}/>
           : null}
 
+        {/*Background or alway present helpers*/}
         <UseranmePromptModal sessionId={sessionId} websocketUserId={websocketUserId} setSessionStatus={setSessionStatus}
           setIsShareableLinkOpen={setIsShareableLinkOpen} isUsernamePromptOpen={isUsernamePromptOpen} setIsUsernamePromptOpen={setIsUsernamePromptOpen}
-          isAlertVisible={props.isAlertVisible} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}/>
+          isAlertVisible={props.isAlertVisible} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} setUsername={setUsername}/>
 
         <ShareableLinkModal sessionId={sessionId} isShareableLinkOpen={isShareableLinkOpen} setIsShareableLinkOpen={setIsShareableLinkOpen}/>
 

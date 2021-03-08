@@ -30,6 +30,7 @@ export default function UseranmePromptModal(props) {
             props.setAlertText("An error occurred, please try again")
             props.setIsAlertVisible(true)
           } else {
+            props.setUsername(usernameInput)
             props.setSessionStatus(response.data.sessionStatus)
             props.setIsUsernamePromptOpen("opacity-0 fadeOut")
             response.data.showShareableLink === true 
