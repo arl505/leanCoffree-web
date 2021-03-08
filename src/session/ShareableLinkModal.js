@@ -4,17 +4,21 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function ShareableLinkModal(props) {
 
+  const [copied, setCopied] = React.useState(false)
+
   let createShareableLinkBody = () => {
     let newSessionUrl = process.env.REACT_APP_FRONTEND_BASEURL + '/session/' + props.sessionId;
+    let copyConfirmation = copied ? <p className="text-white text-lg leading-relaxed text-center">Copied to Clipboard ✅</p> : null
     return (
       <>
         <p className="text-white text-lg leading-relaxed text-center">Your meeting link is</p>
         <p className="text-white text-lg leading-relaxed text-center">{newSessionUrl}</p>
-        <div className="text-center">
-          <CopyToClipboard text={newSessionUrl}>
-            <button type="button" className="mt-2 text-white text-lg leading-relaxed outline p-2">Copy to clipboard</button>
+        <div className="">
+          <CopyToClipboard text={newSessionUrl} onCopy={() => setCopied(true)}>
+            <button className="inline-block mt-2 text-white text-lg leading-relaxed outline p-2 hover:bg-gray-900 focus:bg-black" type="button">Copy to clipboard</button>
           </CopyToClipboard>
         </div>
+        {copyConfirmation}
       </>
     )
   }

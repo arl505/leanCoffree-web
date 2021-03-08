@@ -10,7 +10,7 @@ export default function NavBar(props) {
     window.location.href = process.env.REACT_APP_FRONTEND_BASEURL
   }
 
-  let homeButton = <button onClick={goHome}>Lean Coffree</button>
+  let homeButton = <button className="hover:text-gray-300 focus:text-gray-400" onClick={goHome}>Lean Coffree</button>
 
   let headingButtonText = props.shortText === true 
     ? homeButton
@@ -25,14 +25,14 @@ export default function NavBar(props) {
     : "hidden";
 
   let usersButtonVisibility = props.showUserButton === true
-    ? ""
+    ? "imgTint"
     : "w-0";
 
   let usersModalBody = () => {
     if(props.users !== undefined) {
       let allHereListItems = [];
       
-      for(let i = 0; i < props.users.displayNames.length; i++) {
+      for(let i = 0; props.users.displayNames !== undefined && i < props.users.displayNames.length; i++) {
         let username = props.users.displayNames[i];
         allHereListItems.push(<li key={i.toString()} class="usernameListItem">{username}</li>);
       }
@@ -47,11 +47,11 @@ export default function NavBar(props) {
     <div className="bg-gray-700 rounded-l-lg ml-5 p-3 flex justify-between items-center sm:pl-10 sm:pr-20">
       <h1>{headingButtonText}</h1>
 
-      <button className={usersButtonVisibility} onClick={displayUsers}>
+      <button disabled={!props.showUserButton} className={usersButtonVisibility} onClick={displayUsers}>
         <img className="h-10" src={usersImage} alt="user list button icon, silhouette of 3 people"/>
       </button>
 
-      <button onClick={props.confirmTransitionToNextSection} className={nextSectionButtonVisiblity}>Next Section</button>
+      <button onClick={props.confirmTransitionToNextSection} className={nextSectionButtonVisiblity + " hover:text-gray-300 focus:text-gray-400"}>Next Section</button>
 
       <Modal fadeType={isUsersModalOpen} setFadeType={setIsUsersModalOpen} headerText="Attending Users" 
           body={usersModalBody} letEscape={true} bodyProps="break-none" submitButtonText="Close"

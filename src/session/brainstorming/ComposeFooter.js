@@ -26,7 +26,7 @@ export default function ComposeFooter(props) {
   
   return (
     <div className="flex justify-end">
-      <button onClick={submitTopic} className="outline p-1 text-sm">Submit</button>
+      <button onClick={submitTopic} className="hover:bg-gray-900 focus:bg-black outline p-1 text-sm">Submit</button>
     </div>
   )
 }
