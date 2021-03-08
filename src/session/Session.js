@@ -96,13 +96,13 @@ export default function Session(props) {
             : <Discussion/>
         }
 
+        {/*Background or alway present helpers*/}
         {connectToWebSocketServer 
           ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setCurrentTopicEndTime={setCurrentTopicEndTime} setWebsocketUserId={setWebsocketUserId}
               sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}
               setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}/>
           : null}
 
-        {/*Background or alway present helpers*/}
         <UseranmePromptModal sessionId={sessionId} websocketUserId={websocketUserId} setSessionStatus={setSessionStatus}
           setIsShareableLinkOpen={setIsShareableLinkOpen} isUsernamePromptOpen={isUsernamePromptOpen} setIsUsernamePromptOpen={setIsUsernamePromptOpen}
           isAlertVisible={props.isAlertVisible} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} setUsername={setUsername}/>

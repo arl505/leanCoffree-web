@@ -28,7 +28,7 @@ export default function Brainstorming(props) {
     tabulateVotesLeft()
 
     if (topics !== undefined && topics.length > 1 && props.sessionStatus === "STARTED" && props.users.moderator.includes(props.username)) {      
-      topicsElements.push(<button onClick={props.confirmTransitionToNextSection} className="outline p-1 mt-2 w-full sm:hidden">Next Section</button>)
+      topicsElements.push(<button onClick={props.confirmTransitionToNextSection} className="hover:bg-gray-900 focus:bg-black outline p-1 mt-2 w-full sm:hidden">Next Section</button>)
     }
 
     let composeFooter = <ComposeFooter topicInput={topicInput} setTopicInput={setTopicInput} sessionId={props.sessionId} username={props.username} setAlertText={props.setAlertText} setIsAlertVisible={props.setIsAlertVisible}/>
