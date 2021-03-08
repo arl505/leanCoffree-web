@@ -4,7 +4,7 @@ import WebSocketClient from './WebSocketClient'
 import UseranmePromptModal from './UsernamePromptModal'
 import ShareableLinkModal from './ShareableLinkModal'
 import NavBar from '../NavBar'
-import Brainstorming from './Brainstorming'
+import Brainstorming from './brainstorming/Brainstorming'
 
 export default function Session(props) {
 
