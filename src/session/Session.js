@@ -5,6 +5,7 @@ import UseranmePromptModal from './UsernamePromptModal'
 import ShareableLinkModal from './ShareableLinkModal'
 import NavBar from '../NavBar'
 import Brainstorming from './brainstorming/Brainstorming'
+import Discussion from './discussion/Discussion'
 
 export default function Session(props) {
 
@@ -55,16 +56,45 @@ export default function Session(props) {
       && (response.data.sessionDetails.sessionStatus === "STARTED" || response.data.sessionDetails.sessionStatus === "DISCUSSING");
   }
 
+  let confirmTransitionToNextSection = () => {
+    props.setAlertText("Confirm transition to next seciton")
+    props.setConfirmationCallback(() => () => transitionToNextSection())
+    props.setIsAlertVisible(true)
+  }
+
+  let transitionToNextSection = () => {
+    if (sessionStatus === "STARTED") {
+      Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/transition-to-discussion/" + sessionId, {})
+        .then((response) => {
+          if(response.data.status !== "SUCCESS") {
+            props.setAlertText("Invalid submission, please fix and retry")
+            props.setIsAlertVisible(true)
+          }
+        })
+        .catch((error) => {
+          props.setAlertText("An error occurred, please try again")
+          props.setIsAlertVisible(true)
+        })
+    }
+  }
+
+  let showNextSectionButton = topics.discussionBacklogTopics !== undefined && topics.discussionBacklogTopics.length > 1 && sessionStatus === "STARTED"
+
   return (
     <div className="bg-gray-800 text-center text-gray-100 min-h-screen min-w-screen">
       <div className="pt-3">
   
         {/*Nav Bar*/}
-        <NavBar shortText={true} showUserButton={true} users={usersInAttendance}/>
+        <NavBar shortText={true} showUserButton={true} users={usersInAttendance} showNextSectionButton={showNextSectionButton} confirmTransitionToNextSection={confirmTransitionToNextSection}/>
 
         {/*Active Tab*/}
-        <Brainstorming topics={topics} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}
-          sessionId={sessionId} username={username} users={usersInAttendance} setConfirmationCallback={props.setConfirmationCallback}/>
+        {
+          sessionStatus === "STARTED" || sessionStatus === ""
+            ? <Brainstorming topics={topics} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} 
+                sessionStatus={sessionStatus} sessionId={sessionId} username={username} users={usersInAttendance} 
+                setConfirmationCallback={props.setConfirmationCallback} confirmTransitionToNextSection={confirmTransitionToNextSection}/>
+            : <Discussion/>
+        }
 
         {connectToWebSocketServer 
           ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setCurrentTopicEndTime={setCurrentTopicEndTime} setWebsocketUserId={setWebsocketUserId}

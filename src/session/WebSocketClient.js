@@ -19,12 +19,12 @@ class WebSocketClient extends React.Component {
         (frame) => {
           stompClient.subscribe('/topic/discussion-topics/session/' + this.props.sessionId, 
             (payload) => {
-              if(JSON.parse(payload.body).currentDiscussionItem.text === undefined) {
-                this.props.setTopics(JSON.parse(payload.body));
-              } else {
+              this.props.setTopics(JSON.parse(payload.body));
+
+              if(JSON.parse(payload.body).currentDiscussionItem.text !== undefined) {
                 this.props.setTopics(JSON.parse(payload.body));
                 this.props.setCurrentTopicEndTime(JSON.parse(payload.body).currentDiscussionItem.endTime);
-                if(this.props.sessionStatus !== "" && !this.props.sessionStatus.includes("ASK_FOR_USERNAME") && this.props.sessionStatus !== "DISCUSSING") {
+                if(this.props.sessionStatus !== "DISCUSSING") {
                   this.props.setSessionStatus("DISCUSSING");
                 }
               }

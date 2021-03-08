@@ -7,6 +7,7 @@ export default function Alert(props) {
     if (props.confirmationCallback !== undefined && confirmed === true) {
       props.confirmationCallback()
     }
+    props.wipeCallback()
   }
 
   let footer = props.confirmationCallback !== undefined
