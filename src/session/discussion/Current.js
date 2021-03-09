@@ -39,7 +39,6 @@ export default function Current(props) {
               <h2>Current Discussion Topic</h2>
             </div>
             
-
             <div className="overflow-scroll px-5 mt-2">
               <h1>{props.topic.text}</h1>
             </div>

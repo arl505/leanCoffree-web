@@ -33,20 +33,24 @@ export default function Brainstorming(props) {
 
     let composeFooter = <ComposeFooter topicInput={topicInput} setTopicInput={setTopicInput} sessionId={props.sessionId} username={props.username} setAlertText={props.setAlertText} setIsAlertVisible={props.setIsAlertVisible}/>
     let composeBody = <textarea type="text" placeholder="Submit a topic!"value={topicInput} onChange={e => setTopicInput(e.target.value)} className="resize-none text-white bg-transparent h-full w-full focus:outline-none"/>
-    topicsElements.push(<TopicCard isCompose={true} topicBody={composeBody} topicFooter={composeFooter}/>)
+    topicsElements.push(<TopicCard disableOverflowScroll={true} topicBody={composeBody} topicFooter={composeFooter}/>)
 
     for (let i = 0; topics !== undefined && i < topics.length; i++) {
       let currTopicText = topics[i].text
+      let isLast = false
+      if(i === topics.length - 1) {
+        isLast = true
+      }
       
       let topicFooter = <TopicFooter sessionId={props.sessionId} username={props.username} setAlertText={props.setAlertText} setIsAlertVisible={props.setIsAlertVisible} 
                     setConfirmationCallback={props.setConfirmationCallback} topic={topics[i]} users={props.users} votesLeft={votesLeft}/>
-      topicsElements.push(<TopicCard topicBody={currTopicText} topicFooter={topicFooter}/>)
+      topicsElements.push(<TopicCard topicBody={currTopicText} topicFooter={topicFooter} isLast={isLast}/>)
     }
     return topicsElements;
   }
 
   return (
-      <div className="sm:inline-grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-10 sm:justify-items-center">
+      <div className="pb-2 sm:inline-grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-10 sm:justify-items-center">
         {createTopicsDisplay()}
       </div>
   )
