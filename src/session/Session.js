@@ -77,6 +77,14 @@ export default function Session(props) {
     }
   }
 
+  let setBacklogTopics = (backlogTopics) => {
+    if (topics.discussionBacklogTopics !== undefined && topics.discussionBacklogTopics.length >= 2) {
+      let topicsCopy = topics
+      topicsCopy.discussionBacklogTopics = backlogTopics
+      setTopics(topicsCopy)
+    }
+  }
+
   let showNextSectionButton = topics.discussionBacklogTopics !== undefined && topics.discussionBacklogTopics.length > 1 && sessionStatus === "STARTED" && usersInAttendance.moderator.includes(username)
 
   return (
@@ -92,11 +100,12 @@ export default function Session(props) {
             ? <Brainstorming topics={topics} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} 
                 sessionStatus={sessionStatus} sessionId={sessionId} username={username} users={usersInAttendance} 
                 setConfirmationCallback={props.setConfirmationCallback} confirmTransitionToNextSection={confirmTransitionToNextSection}/>
-            : <Discussion topics={topics}/>
+            : <Discussion topics={topics} sessionId={sessionId} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}
+                isModerator={usersInAttendance.moderator !== undefined && usersInAttendance.moderator.includes(username)} setBacklogTopics={setBacklogTopics}/>
         }
 
         {/*Background or alway present helpers*/}
-        {connectToWebSocketServer 
+        {connectToWebSocketServer
           ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setWebsocketUserId={setWebsocketUserId}
               sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}
               setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}/>

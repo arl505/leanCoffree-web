@@ -4,9 +4,11 @@ module.exports = {
   theme: {
     extend: {
       maxHeight: {
-        '50h': '50vh'
+        '50h': '50vh',
+        '40h': '40vh'
       },
       height: {
+        "10p": "10%",
         "48w": "48vw",
         "70vh": "70vh",
         "80vh": "80vh"
