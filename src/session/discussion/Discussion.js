@@ -19,9 +19,17 @@ export default function Discussion(props) {
     let current = () => {
       if (props.topics.currentDiscussionItem !== undefined && props.topics.currentDiscussionItem.text !== undefined) {
         return (
-          <div className="flex-grow">
-            <h2>Current Discussion Topic</h2>
-            <h3>{props.topics.currentDiscussionItem.text}</h3>
+          <div className="h-full flex flex-col">
+            <div className="">
+              <h2>Current Discussion Topic</h2>
+            </div>
+            
+
+              <div className="overflow-scroll px-5 flex flex-col mt-5">
+                <h3>{props.topics.currentDiscussionItem.text}</h3>
+              </div>
+
+            <div className="flex flex-grow flex-col justify-end mt-3">hi</div>
           </div>
         )
       } else {
@@ -38,18 +46,16 @@ export default function Discussion(props) {
     }
   
   return (
-    <div className="h-70vh sm:h-85vh">
-      <div className="flex flex-col h-full">
+    <div className="pb-2">
         <div>
           <button onClick={() => setActiveTab("QUEUE")} className={queueButtonStyle + " relative mt-2 mx-2 p-1 rounded-tl rounded-tr"}>QUEUE</button>
           <button onClick={() => setActiveTab("CURRENT")} className={currentButtonStyle + " relative mt-2 mx-2 p-1 rounded-tl rounded-tr"}>CURRENT</button>
-          <button onClick={() => setActiveTab("PAST")} className={pastButtonStyle + " relative mt-2 mx-2 p-1 rounded-tl rounded-tr"}>PAST</button> <br/>
+          <button onClick={() => setActiveTab("PAST")} className={pastButtonStyle + " relative mt-2 mx-2 p-1 rounded-tl rounded-tr"}>PAST</button>
         </div>
 
-        <div className="flex-grow m-auto w-85w border rounded">
+        <div className="h-70vh sm:h-80vh m-auto w-85w border rounded">
           {activeTabElement()}
         </div>
-      </div>
     </div>
   )
 }
