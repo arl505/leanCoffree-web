@@ -101,7 +101,8 @@ export default function Session(props) {
                 sessionStatus={sessionStatus} sessionId={sessionId} username={username} users={usersInAttendance} 
                 setConfirmationCallback={props.setConfirmationCallback} confirmTransitionToNextSection={confirmTransitionToNextSection}/>
             : <Discussion topics={topics} sessionId={sessionId} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}
-                isModerator={usersInAttendance.moderator !== undefined && usersInAttendance.moderator.includes(username)} setBacklogTopics={setBacklogTopics}/>
+                isModerator={usersInAttendance.moderator !== undefined && usersInAttendance.moderator.includes(username)} setBacklogTopics={setBacklogTopics}
+                setConfirmationCallback={props.setConfirmationCallback}/>
         }
 
         {/*Background or alway present helpers*/}

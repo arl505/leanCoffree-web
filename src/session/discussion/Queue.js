@@ -2,6 +2,7 @@ import React from 'react'
 import Axios from 'axios'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import TopicCard from '../TopicCard'
+import DiscussionTopicFooter from './DiscussionTopicFooter'
 
 export default function Queue(props) {
 
@@ -18,16 +19,16 @@ export default function Queue(props) {
     props.setTopics(topics)
 
     Axios.post(process.env.REACT_APP_BACKEND_BASEURL + '/reorder', {sessionId: props.sessionId, text: topic.text, newIndex: result.destination.index})
-        .then((response) => {
-          if(response.data.status !== "SUCCESS") {
-            props.setAlertText("Invalid submission, please fix and retry")
-            props.setIsAlertVisible(true)
-          }
-        })
-        .catch((error) => {
-            props.setAlertText("An error occurred, please try again")
-            props.setIsAlertVisible(true)
-        });
+      .then((response) => {
+        if(response.data.status !== "SUCCESS") {
+          props.setAlertText("Invalid submission, please fix and retry")
+          props.setIsAlertVisible(true)
+        }
+      })
+      .catch((error) => {
+          props.setAlertText("An error occurred, please try again")
+          props.setIsAlertVisible(true)
+      });
   }
 
   let createBacklog = () => {
@@ -41,15 +42,19 @@ export default function Queue(props) {
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <div className="" {...provided.droppableProps} ref={provided.innerRef}>
-                  {props.topics.map((topic, i) => { return (
-                    <Draggable key={i} draggableId={'draggable_' + i} index={i}>
-                      {(provided) => (
-                        <div className="p-2 overflow-scroll" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} key={i}>
-                          <p className="float-left">{1 + i}</p>
-                          <TopicCard topicBody={topic.text} topicFooter={"Votes: " + topic.voters.length} makeAllWide={true}/>
-                        </div>
-                      )}
-                    </Draggable>
+                  {props.topics.map((topic, i) => { 
+                    let backlogTopicFooter = (
+                      <DiscussionTopicFooter setAlertText={props.setAlertText} setIsAlertVisible={props.setIsAlertVisible} topic={topic} isAnyTopicActive={true}
+                        setConfirmationCallback={props.setConfirmationCallback} sessionId={props.sessionId} isModerator={props.isModerator} currentDiscussionItem={props.currentDiscussionItem}/>)
+                    return (
+                      <Draggable key={i} draggableId={'draggable_' + i} index={i}>
+                        {(provided) => (
+                          <div className="p-2 overflow-scroll" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} key={i}>
+                            <p className="float-left">{1 + i}</p>
+                            <TopicCard topicBody={topic.text} topicFooter={backlogTopicFooter} makeAllWide={true}/>
+                          </div>
+                        )}
+                      </Draggable>
                   )})}
                   {provided.placeholder}
                 </div>
@@ -61,11 +66,15 @@ export default function Queue(props) {
     } else {
         return (
         <>
-          {props.topics.map((topic, i) => { return (
-            <div  className="p-2" key={i}>
-              <p className="float-left m-2">{1 + i}</p>
-              <TopicCard topicBody={topic.text} topicFooter={"Votes: " + topic.voters.length} makeAllWide={true}/>
-            </div>
+          {props.topics.map((topic, i) => { 
+            let backlogTopicFooter = (
+              <DiscussionTopicFooter setAlertText={props.setAlertText} setIsAlertVisible={props.setIsAlertVisible} topic={topic} isAnyTopicActive={true}
+                setConfirmationCallback={props.setConfirmationCallback} sessionId={props.sessionId} isModerator={props.isModerator} currentDiscussionItem={props.currentDiscussionItem}/>)
+            return (
+              <div  className="p-2" key={i}>
+                <p className="float-left m-2">{1 + i}</p>
+                <TopicCard topicBody={topic.text} topicFooter={backlogTopicFooter} makeAllWide={true}/>
+              </div>
           )})}
         </>
       )

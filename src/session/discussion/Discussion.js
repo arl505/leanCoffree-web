@@ -29,7 +29,8 @@ export default function Discussion(props) {
       <div className="h-70vh sm:h-80vh m-auto w-85w border rounded">
         {activeTab === "QUEUE"
             ? <Queue topics={props.topics.discussionBacklogTopics} sessionId={props.sessionId} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}
-                isModerator={props.isModerator} setTopics={props.setBacklogTopics}/>
+                isModerator={props.isModerator} setTopics={props.setBacklogTopics} setConfirmationCallback={props.setConfirmationCallback} 
+                currentDiscussionItem={props.topics.currentDiscussionItem}/>
             : activeTab === "PAST"
               ? "PAST"
               : <Current topic={props.topics.currentDiscussionItem}/>}
