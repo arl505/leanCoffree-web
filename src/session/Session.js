@@ -12,7 +12,6 @@ export default function Session(props) {
   const [sessionId, setSessionId] = React.useState("");
   const [sessionStatus, setSessionStatus] = React.useState("");
   const [topics, setTopics] = React.useState([]);
-  const [currentTopicEndTime, setCurrentTopicEndTime] = React.useState("");
   const [usersInAttendance, setUsersInAttendance] = React.useState([]);
   const [websocketUserId, setWebsocketUserId] = React.useState("");
   const [connectToWebSocketServer, setConnectToWebSocketServer] = React.useState(false);
@@ -98,7 +97,7 @@ export default function Session(props) {
 
         {/*Background or alway present helpers*/}
         {connectToWebSocketServer 
-          ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setCurrentTopicEndTime={setCurrentTopicEndTime} setWebsocketUserId={setWebsocketUserId}
+          ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setWebsocketUserId={setWebsocketUserId}
               sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}
               setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}/>
           : null}
