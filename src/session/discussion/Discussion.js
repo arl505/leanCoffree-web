@@ -25,7 +25,7 @@ export default function Discussion(props) {
             </div>
             
 
-              <div className="overflow-scroll px-5 flex flex-col mt-5">
+              <div className="overflow-scroll px-5 mt-5">
                 <h3>{props.topics.currentDiscussionItem.text}</h3>
               </div>
 
