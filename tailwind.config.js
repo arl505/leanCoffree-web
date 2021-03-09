@@ -17,6 +17,10 @@ module.exports = {
       },
       boxShadow: {
         custom: 'inset 1px 0px #ffffff, inset 0px 1px #ffffff, inset -1px 0px #ffffff, 0px 2px rgba(31, 41, 55, 1)',
+      },
+      backgroundColor: {
+        'light': '#243040',
+        'lighter': '#293647',
       }
     }
   },

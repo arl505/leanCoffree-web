@@ -33,7 +33,7 @@ export default function Brainstorming(props) {
 
     let composeFooter = <ComposeFooter topicInput={topicInput} setTopicInput={setTopicInput} sessionId={props.sessionId} username={props.username} setAlertText={props.setAlertText} setIsAlertVisible={props.setIsAlertVisible}/>
     let composeBody = <textarea type="text" placeholder="Submit a topic!"value={topicInput} onChange={e => setTopicInput(e.target.value)} className="resize-none text-white bg-transparent h-full w-full focus:outline-none"/>
-    topicsElements.push(<TopicCard isCompose={true} topicBody={composeBody} topicFooter={composeFooter}/>)
+    topicsElements.push(<TopicCard disableOverflowScroll={true} topicBody={composeBody} topicFooter={composeFooter}/>)
 
     for (let i = 0; topics !== undefined && i < topics.length; i++) {
       let currTopicText = topics[i].text

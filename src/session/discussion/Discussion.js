@@ -1,5 +1,6 @@
 import React from 'react'
 import Current from './Current'
+import Queue from './Queue'
 
 export default function Discussion(props) {
 
@@ -27,7 +28,7 @@ export default function Discussion(props) {
 
       <div className="h-70vh sm:h-80vh m-auto w-85w border rounded">
         {activeTab === "QUEUE"
-            ? "QUEUE"
+            ? <Queue topics={props.topics.discussionBacklogTopics}/>
             : activeTab === "PAST"
               ? "PAST"
               : <Current topic={props.topics.currentDiscussionItem}/>}

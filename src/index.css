@@ -32,6 +32,11 @@
     border-radius: 15px;
   }
 
+  .outlineThin {
+    border: solid white 1px;
+    border-radius: 15px;
+  }
+
   .fadeIn {
     animation-duration: 0.5s;
     animation-name: fadein;
