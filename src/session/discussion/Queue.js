@@ -9,8 +9,12 @@ export default function Queue(props) {
     } else {
       let topicsElements = []
       props.topics.forEach((topic, i) => {
-        topicsElements.push(<li key={i}><p className="float-left m-2">{++i}</p><TopicCard topicBody={topic.text} topicFooter={"Votes: " + topic.voters.length} makeAllWide={true}/></li>)
-      })
+        topicsElements.push(
+          <li key={i}>
+            <p className="float-left m-2">{++i}</p>
+            <TopicCard topicBody={topic.text} topicFooter={"Votes: " + topic.voters.length} makeAllWide={true}/>
+          </li>
+        )})
       return topicsElements
     }
   }
