@@ -1,6 +1,7 @@
 import React from 'react'
 import Current from './Current'
 import Queue from './Queue'
+import Past from './Past'
 
 export default function Discussion(props) {
 
@@ -32,7 +33,9 @@ export default function Discussion(props) {
                 isModerator={props.isModerator} setTopics={props.setBacklogTopics} setConfirmationCallback={props.setConfirmationCallback} 
                 currentDiscussionItem={props.topics.currentDiscussionItem}/>
             : activeTab === "PAST"
-              ? "PAST"
+              ? <Past setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} setConfirmationCallback={props.setConfirmationCallback}
+                  topics={props.topics.discussedTopics} currentDiscussionItem={props.topics.currentDiscussionItem} sessionId={props.sessionId} isModerator={props.isModerator} 
+                  isAnyTopicActive={props.topics.currentDiscussionItem !== undefined && props.topics.currentDiscussionItem.text !== undefined}/>
               : <Current topic={props.topics.currentDiscussionItem}/>}
       </div>
     </div>
