@@ -10,6 +10,8 @@ class Current extends React.Component {
     }
     this.confirmLoadNextTopic = this.confirmLoadNextTopic.bind(this)
     this.loadNextTopic = this.loadNextTopic.bind(this)
+    this.confirmEndSession = this.confirmEndSession.bind(this)
+    this.endSession = this.endSession.bind(this)
   }
 
   componentDidMount() {
@@ -22,7 +24,6 @@ class Current extends React.Component {
       }
     }, 500);
   }
-
 
   getTimerStringFromSecondsLeft(secondsLeft) {
     let min = Math.floor(secondsLeft / 60)
@@ -52,6 +53,27 @@ class Current extends React.Component {
     Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/refresh-topics", body)
   }
 
+  confirmEndSession() {
+    this.props.setAlertText("Are you sure you'd like to end the session?")
+    this.props.setConfirmationCallback(() => () => this.endSession());
+    this.props.setIsAlertVisible(true)
+  }
+
+  endSession() {
+    Axios.post(process.env.REACT_APP_BACKEND_BASEURL + '/end-session/' + this.props.sessionId, {})
+      .then((response) => {
+        if(response.data.status !== "SUCCESS") {
+          this.props.setAlertText("Invalid submission, please fix and retry")
+          this.props.setIsAlertVisible(true)        
+        } else {
+          return window.location = process.env.REACT_APP_FRONTEND_BASEURL;
+        }
+      })
+      .catch((error) => {
+        this.props.setAlertText("An error occurred, please try again")
+        this.props.setIsAlertVisible(true)
+      });
+  }
 
   render() {
     let endTopicButton = this.props.isModerator === true && (this.props.topic !== undefined && this.props.topic.text !== undefined)
@@ -59,8 +81,8 @@ class Current extends React.Component {
       : <button onClick={this.confirmLoadNextTopic} className="invisible hover:bg-gray-900 focus:bg-black outline ml-1 p-1 text-sm">End Topic</button>
 
     let endSessionButton = this.props.isModerator === true 
-      ? <button onClick={() => this.confirmLoadNextTopic(this.props.topic)} className="hover:bg-gray-900 focus:bg-black outline mr-1 p-1 text-sm">End Session</button>
-      : <button onClick={() => this.confirmLoadNextTopic(this.props.topic)} className="invisible hover:bg-gray-900 focus:bg-black outline mr-1 p-1 text-sm">End Session</button>
+      ? <button onClick={this.confirmEndSession} className="hover:bg-gray-900 focus:bg-black outline mr-1 p-1 text-sm">End Session</button>
+      : <button onClick={this.confirmEndSession} className="invisible hover:bg-gray-900 focus:bg-black outline mr-1 p-1 text-sm">End Session</button>
 
     let mainText = this.props.topic === undefined || this.props.topic.text === undefined 
       ? "All conversation topics completed!"
