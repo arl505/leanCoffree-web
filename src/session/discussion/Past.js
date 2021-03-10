@@ -6,7 +6,7 @@ export default function Past(props) {
 
   let createDisplay = () => {
     if (props.topics === undefined || props.topics.length < 1) {
-      return <h1>Topics will appear here after they've been discussed</h1>
+      return <h1 className="mt-2">Topics will appear here after they've been discussed</h1>
     } else {
       return (
         <>

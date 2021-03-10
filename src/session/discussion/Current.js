@@ -6,7 +6,7 @@ class Current extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      timerString: "3:00"
+      timerString: ""
     }
     this.confirmLoadNextTopic = this.confirmLoadNextTopic.bind(this)
     this.loadNextTopic = this.loadNextTopic.bind(this)
@@ -89,30 +89,23 @@ class Current extends React.Component {
       : this.props.topic.text
 
     return (
-      <>
-        { 
-          this.props.topic !== undefined && this.props.topic.text !== undefined ? 
-          (
-            <div className="h-full flex flex-col">
-              <div className="mt-2">
-                <h2>Current Discussion Topic</h2>
-              </div>
-              
-              <div className="overflow-scroll px-5 mt-2">
-                <h1>{mainText}</h1>
-              </div>
+      <div className="h-full flex flex-col">
+        <div className="mt-2">
+          <h2>Current Discussion Topic</h2>
+        </div>
+        
+        <div className="overflow-scroll px-5 mt-2">
+          <h1>{mainText}</h1>
+        </div>
 
-              <div className="flex flex-grow flex-col justify-end mt-3">
-                <div className="flex flex-row justify-between">
-                  {endTopicButton}
-                  <h2>{this.state.timerString}</h2>
-                  {endSessionButton}
-                </div>
-              </div>
-            </div> 
-          ) : <h2>All conversation topics completed!</h2>
-        }
-      </>
+        <div className="flex flex-grow flex-col justify-end mt-3">
+          <div className="flex flex-row justify-between">
+            {endTopicButton}
+            <h2>{this.state.timerString}</h2>
+            {endSessionButton}
+          </div>
+        </div>
+      </div>
     )
   }
 }
