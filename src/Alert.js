@@ -5,12 +5,13 @@ export default function Alert(props) {
   let closeAlert = (confirmed) => {
     props.setIsVisible(false)
     if (props.confirmationCallback !== undefined && confirmed === true) {
+      props.wipeCallbackWithoutConfirmation()
       props.confirmationCallback()
     }
     props.wipeCallback()
   }
 
-  let footer = props.confirmationCallback !== undefined
+  let footer = props.confirmationCallback !== undefined && props.callbackWithoutConfirmation !== true
     ? (
         <div className="w-full h-full border-t bg-white rounded-b rounded-t">
           <button onClick={() => closeAlert(false)} className="w-1/2 h-full border-r hover:bg-gray-100 focus:bg-gray-200">

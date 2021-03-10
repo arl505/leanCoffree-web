@@ -9,19 +9,25 @@ function App() {
   const [isAlertVisible, setIsAlertVisible] = React.useState(false);
   const [alertText, setAlertText] = React.useState("");
   const [confirmationCallback, setConfirmationCallback] = React.useState(() => {})
+  const [callbackWithoutConfirmation, setCallbackWithoutConfirmation] = React.useState(false)
 
   let wipeCallback = () => {
     setConfirmationCallback(() => {})
   }
 
+  let wipeCallbackWithoutConfirmation = () => {
+    setCallbackWithoutConfirmation(false)
+  }
+
   return (
     <div>
-      <Alert wipeCallback={wipeCallback} isVisible={isAlertVisible} setIsVisible={setIsAlertVisible} text={alertText} confirmationCallback={confirmationCallback}/>
+      <Alert wipeCallback={wipeCallback} isVisible={isAlertVisible} setIsVisible={setIsAlertVisible} text={alertText} confirmationCallback={confirmationCallback}
+        callbackWithoutConfirmation={callbackWithoutConfirmation} wipeCallbackWithoutConfirmation={wipeCallbackWithoutConfirmation}/>
       <Router>
         <Switch>
         <Route path='/session' 
             render={(props) => (
-              <Session {...props} isAlertVisible={isAlertVisible} setIsAlertVisible={setIsAlertVisible} setAlertText={setAlertText} setConfirmationCallback={setConfirmationCallback}/>
+              <Session {...props} isAlertVisible={isAlertVisible} setIsAlertVisible={setIsAlertVisible} setAlertText={setAlertText} setConfirmationCallback={setConfirmationCallback} setCallbackWithoutConfirmation={setCallbackWithoutConfirmation}/>
             )}
           />
           <Route path='/' 
