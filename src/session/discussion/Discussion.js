@@ -36,7 +36,9 @@ export default function Discussion(props) {
               ? <Past setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} setConfirmationCallback={props.setConfirmationCallback}
                   topics={props.topics.discussedTopics} currentDiscussionItem={props.topics.currentDiscussionItem} sessionId={props.sessionId} isModerator={props.isModerator} 
                   isAnyTopicActive={props.topics.currentDiscussionItem !== undefined && props.topics.currentDiscussionItem.text !== undefined}/>
-              : <Current topic={props.topics.currentDiscussionItem}/>}
+              : <Current setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} setConfirmationCallback={props.setConfirmationCallback}
+                  topic={props.topics.currentDiscussionItem} isModerator={props.isModerator} currentDiscussionItem={props.topics.currentDiscussionItem}
+                  sessionId={props.sessionId} discussionBacklogTopics={props.topics.discussionBacklogTopics}/>}
       </div>
     </div>
   )

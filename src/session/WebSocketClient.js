@@ -22,7 +22,6 @@ class WebSocketClient extends React.Component {
               this.props.setTopics(JSON.parse(payload.body));
 
               if(JSON.parse(payload.body).currentDiscussionItem.text !== undefined) {
-                this.props.setTopics(JSON.parse(payload.body));
                 if(this.props.sessionStatus !== "DISCUSSING") {
                   this.props.setSessionStatus("DISCUSSING");
                 }
