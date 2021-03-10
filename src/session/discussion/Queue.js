@@ -33,7 +33,7 @@ export default function Queue(props) {
 
   let createBacklog = () => {
     if (props.topics === undefined || 1 > props.topics.length ) {
-      return <h3>You've cleared out the discussion queue!</h3>
+      return <h1 className="mt-2">You've cleared out the discussion queue!</h1>
     } else if (2 <= props.topics.length && props.isModerator === true) {
       return (
         <div className="h-full">

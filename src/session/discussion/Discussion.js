@@ -1,6 +1,7 @@
 import React from 'react'
 import Current from './Current'
 import Queue from './Queue'
+import Past from './Past'
 
 export default function Discussion(props) {
 
@@ -21,9 +22,9 @@ export default function Discussion(props) {
   return (
     <div className="pb-2">
       <div>
-        <button onClick={() => setActiveTab("QUEUE")} className={queueButtonStyle + " relative mt-2 mx-2 p-1 rounded-tl rounded-tr"}>QUEUE</button>
-        <button onClick={() => setActiveTab("CURRENT")} className={currentButtonStyle + " relative mt-2 mx-2 p-1 rounded-tl rounded-tr"}>CURRENT</button>
-        <button onClick={() => setActiveTab("PAST")} className={pastButtonStyle + " relative mt-2 mx-2 p-1 rounded-tl rounded-tr"}>PAST</button>
+        <button onClick={() => setActiveTab("QUEUE")} className={queueButtonStyle + " relative mt-2 mx-2 p-1 rounded-tl rounded-tr hover:text-gray-300 focus:text-gray-400"}>QUEUE</button>
+        <button onClick={() => setActiveTab("CURRENT")} className={currentButtonStyle + " relative mt-2 mx-2 p-1 rounded-tl rounded-tr hover:text-gray-300 focus:text-gray-400"}>CURRENT</button>
+        <button onClick={() => setActiveTab("PAST")} className={pastButtonStyle + " relative mt-2 mx-2 p-1 rounded-tl rounded-tr hover:text-gray-300 focus:text-gray-400"}>PAST</button>
       </div>
 
       <div className="h-70vh sm:h-80vh m-auto w-85w border rounded">
@@ -32,8 +33,12 @@ export default function Discussion(props) {
                 isModerator={props.isModerator} setTopics={props.setBacklogTopics} setConfirmationCallback={props.setConfirmationCallback} 
                 currentDiscussionItem={props.topics.currentDiscussionItem}/>
             : activeTab === "PAST"
-              ? "PAST"
-              : <Current topic={props.topics.currentDiscussionItem}/>}
+              ? <Past setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} setConfirmationCallback={props.setConfirmationCallback}
+                  topics={props.topics.discussedTopics} currentDiscussionItem={props.topics.currentDiscussionItem} sessionId={props.sessionId} isModerator={props.isModerator} 
+                  isAnyTopicActive={props.topics.currentDiscussionItem !== undefined && props.topics.currentDiscussionItem.text !== undefined}/>
+              : <Current setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} setConfirmationCallback={props.setConfirmationCallback}
+                  topic={props.topics.currentDiscussionItem} isModerator={props.isModerator} currentDiscussionItem={props.topics.currentDiscussionItem}
+                  sessionId={props.sessionId} discussionBacklogTopics={props.topics.discussionBacklogTopics}/>}
       </div>
     </div>
   )

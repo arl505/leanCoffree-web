@@ -56,7 +56,7 @@ export default function Session(props) {
   }
 
   let confirmTransitionToNextSection = () => {
-    props.setAlertText("Confirm transition to next seciton")
+    props.setAlertText("Confirm transition to next section")
     props.setConfirmationCallback(() => () => transitionToNextSection())
     props.setIsAlertVisible(true)
   }
@@ -109,7 +109,8 @@ export default function Session(props) {
         {connectToWebSocketServer
           ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setWebsocketUserId={setWebsocketUserId}
               sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}
-              setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}/>
+              setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} setConfirmationCallback={props.setConfirmationCallback}
+              usersInAttendance={usersInAttendance} username={username} setCallbackWithoutConfirmation={props.setCallbackWithoutConfirmation}/>
           : null}
 
         <UseranmePromptModal sessionId={sessionId} websocketUserId={websocketUserId} setSessionStatus={setSessionStatus}
