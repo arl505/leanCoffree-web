@@ -53,9 +53,11 @@ export default function Modal(props) {
                   </div>
                   
                   {/*footer*/}
-                  <div className="flex items-center justify-end p-3 border-t border-solid border-gray-300 rounded-b">
-                    <button className="bg-green-500 text-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:bg-green-600 focus:bg-green-700">{props.submitButtonText}</button>
-                  </div>
+                  { props.submitButtonText !== undefined ?
+                    <div className="flex items-center justify-end p-3 border-t border-solid border-gray-300 rounded-b">
+                      <button className="bg-green-500 text-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:bg-green-600 focus:bg-green-700">{props.submitButtonText}</button>
+                    </div> : null
+                  }
                 </form>
               </div>
             </div>
