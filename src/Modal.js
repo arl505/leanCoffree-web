@@ -48,9 +48,14 @@ export default function Modal(props) {
 
                 <form onSubmit={submit}>
                   {/*body*/}
-                  <div className={"relative p-3 flex-auto " + props.bodyProps}>
-                    {props.body()}
-                  </div>
+                  { props.nonfunctionBody === undefined 
+                      ? <div className={"relative p-3 flex-auto " + props.bodyProps}>
+                          {props.body()}
+                        </div>
+                      : <div className={"relative p-3 flex-auto " + props.bodyProps}>
+                          {props.nonfunctionBody}
+                        </div>
+                  }
                   
                   {/*footer*/}
                   { props.submitButtonText !== undefined ?

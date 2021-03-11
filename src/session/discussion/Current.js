@@ -5,20 +5,8 @@ export default function Current(props) {
 
   let confirmLoadNextTopic = () => {
     props.setAlertText("End current topic?")
-    props.setConfirmationCallback(() => () => loadNextTopic());
+    props.setConfirmationCallback(() => () => props.loadNextTopic());
     props.setIsAlertVisible(true)
-  }
-
-  let loadNextTopic = () => {
-    let nextTopic = props.discussionBacklogTopics === undefined || props.discussionBacklogTopics.length < 1
-      ? undefined
-      : props.discussionBacklogTopics[0]
-    
-    let body = nextTopic !== undefined
-      ? {command: "NEXT", sessionId: props.sessionId, currentTopicText: props.topic.text, nextTopicText: nextTopic.text, currentTopicAuthorDisplayName: props.topic.authorDisplayName, nextTopicAuthorDisplayName: nextTopic.authorDisplayName}
-      : {command: "FINISH", sessionId: props.sessionId, currentTopicText: props.topic.text, currentTopicAuthorDisplayName: props.topic.authorDisplayName};
-    
-    Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/refresh-topics", body)
   }
 
   let confirmEndSession = () => {

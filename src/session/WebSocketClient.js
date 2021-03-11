@@ -42,6 +42,11 @@ class WebSocketClient extends React.Component {
               this.props.setUsersInAttendance(JSON.parse(payload.body));
             }
           );
+          stompClient.subscribe('/topic/discussion-votes/session/' + this.props.sessionId,
+            (payload) => {
+              this.props.setDiscussionVotes(JSON.parse(payload.body));
+            }
+          );
 
           Axios.get(process.env.REACT_APP_BACKEND_BASEURL + "/refresh-users/" + this.props.sessionId);
           this.props.setWebsocketUserId(frame.headers['user-name']);

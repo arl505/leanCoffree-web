@@ -1,8 +1,10 @@
 import React from 'react'
+import Axios from 'axios'
 import Current from './Current'
 import Queue from './Queue'
 import Past from './Past'
-import TopicEndModal from './TopicEndModal'
+import Modal from '../../Modal'
+import TopicEndModalBody from './TopicEndModalBody'
 
 class Discussion extends React.Component {
 
@@ -12,6 +14,7 @@ class Discussion extends React.Component {
       activeTab: "CURRENT",
       timerString: ""
     }
+    this.loadNextTopic = this.loadNextTopic.bind(this)
   }
 
   componentDidMount() {
@@ -35,6 +38,18 @@ class Discussion extends React.Component {
     return min + ':' + sec;
   }
 
+  loadNextTopic() {
+    let nextTopic = this.props.topics.discussionBacklogTopics === undefined || this.props.topics.discussionBacklogTopics.length < 1
+      ? undefined
+      : this.props.topics.discussionBacklogTopics[0]
+    
+    let body = nextTopic !== undefined
+      ? {command: "NEXT", sessionId: this.props.sessionId, currentTopicText: this.props.topics.currentDiscussionItem.text, nextTopicText: nextTopic.text, currentTopicAuthorDisplayName: this.props.topics.currentDiscussionItem.authorDisplayName, nextTopicAuthorDisplayName: nextTopic.authorDisplayName}
+      : {command: "FINISH", sessionId: this.props.sessionId, currentTopicText: this.props.topics.currentDiscussionItem.text, currentTopicAuthorDisplayName: this.props.topics.currentDiscussionItem.authorDisplayName};
+    
+    Axios.post(process.env.REACT_APP_BACKEND_BASEURL + "/refresh-topics", body)
+  }
+
   render() {
     let queueButtonStyle = this.state.activeTab === "QUEUE"
       ? "shadow-custom"
@@ -47,6 +62,10 @@ class Discussion extends React.Component {
     let pastButtonStyle = this.state.activeTab === "PAST"
       ? "shadow-custom"
       : ""
+
+    let modalBody = this.state.timerString === "0:00" 
+      ? <TopicEndModalBody isModerator={this.props.isModerator} sessionId={this.props.sessionId} username={this.props.username} discussionVotes={this.props.discussionVotes} loadNextTopic={this.loadNextTopic}/>
+      : null
 
     return (
       <div className="pb-2">
@@ -66,10 +85,13 @@ class Discussion extends React.Component {
                     topics={this.props.topics.discussedTopics} currentDiscussionItem={this.props.topics.currentDiscussionItem} sessionId={this.props.sessionId} isModerator={this.props.isModerator} 
                     isAnyTopicActive={this.props.topics.currentDiscussionItem !== undefined && this.props.topics.currentDiscussionItem.text !== undefined}/>
                 : <Current setIsAlertVisible={this.props.setIsAlertVisible} setAlertText={this.props.setAlertText} setConfirmationCallback={this.props.setConfirmationCallback}
-                    topic={this.props.topics.currentDiscussionItem} isModerator={this.props.isModerator} currentDiscussionItem={this.props.topics.currentDiscussionItem}
-                    sessionId={this.props.sessionId} discussionBacklogTopics={this.props.topics.discussionBacklogTopics} timerString={this.state.timerString}/>}
+                    topic={this.props.topics.currentDiscussionItem} isModerator={this.props.isModerator} loadNextTopic={this.loadNextTopic}
+                    sessionId={this.props.sessionId} timerString={this.state.timerString}/>}
 
-            <TopicEndModal currTopic={this.props.topics.currentDiscussionItem} timerString={this.state.timerString}/>
+            {this.state.timerString === '0:00' 
+              ? <Modal fadeType="opacity-1 fadeIn" headerText="Vote: Add Time or End Topic" 
+                  letEscape={false} bodyProps="break-none" nonfunctionBody={modalBody}/> : null
+            }
         </div>
       </div>
     )

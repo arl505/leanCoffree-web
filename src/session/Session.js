@@ -18,6 +18,7 @@ export default function Session(props) {
   const [isUsernamePromptOpen, setIsUsernamePromptOpen] = React.useState("opacity-0 fadeOut")
   const [isShareableLinkOpen, setIsShareableLinkOpen] = React.useState("opacity-0 fadeOut")
   const [username, setUsername] = React.useState("")
+  const [discussionVotes, setDiscussionVotes] = React.useState([]);
   
   React.useEffect(() => {
     if (sessionStatus === "" && sessionId === "") {
@@ -102,7 +103,7 @@ export default function Session(props) {
                 setConfirmationCallback={props.setConfirmationCallback} confirmTransitionToNextSection={confirmTransitionToNextSection}/>
             : <Discussion topics={topics} sessionId={sessionId} setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText}
                 isModerator={usersInAttendance.moderator !== undefined && usersInAttendance.moderator.includes(username)} setBacklogTopics={setBacklogTopics}
-                setConfirmationCallback={props.setConfirmationCallback}/>
+                setConfirmationCallback={props.setConfirmationCallback} username={username} discussionVotes={discussionVotes}/>
         }
 
         {/*Background or alway present helpers*/}
@@ -110,7 +111,8 @@ export default function Session(props) {
           ? <WebSocketClient sessionId={sessionId} setTopics={setTopics} setWebsocketUserId={setWebsocketUserId}
               sessionStatus={sessionStatus} setSessionStatus={setSessionStatus} setUsersInAttendance={setUsersInAttendance}
               setIsAlertVisible={props.setIsAlertVisible} setAlertText={props.setAlertText} setConfirmationCallback={props.setConfirmationCallback}
-              usersInAttendance={usersInAttendance} username={username} setCallbackWithoutConfirmation={props.setCallbackWithoutConfirmation}/>
+              usersInAttendance={usersInAttendance} username={username} setCallbackWithoutConfirmation={props.setCallbackWithoutConfirmation}
+              setDiscussionVotes={setDiscussionVotes}/>
           : null}
 
         <UseranmePromptModal sessionId={sessionId} websocketUserId={websocketUserId} setSessionStatus={setSessionStatus}
