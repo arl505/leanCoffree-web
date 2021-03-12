@@ -3,10 +3,12 @@ import usersImage from './assets/usersImg.png'
 import whiteCrown from './assets/whiteCrown.png'
 import blueCrown from './assets/blueCrown.png'
 import Modal from './Modal'
+import ShareableLinkModal from './session/ShareableLinkModal'
 
 export default function NavBar(props) {
 
   const [isUsersModalOpen, setIsUsersModalOpen] = React.useState("opacity-0 fadeOut");
+  const [isShareableLinkOpen, setIsShareableLinkOpen] = React.useState("opacity-0 fadeOut");
 
   let goHome = () => {
     window.location.href = process.env.REACT_APP_FRONTEND_BASEURL
@@ -58,7 +60,12 @@ export default function NavBar(props) {
 
       return (
         <div>
-          {allHereListItems}
+          <div>
+            {allHereListItems}
+          </div>
+          <div>
+            <button type="button" className="outline p-2 mt-2 hover:bg-gray-900 focus:bg-black" onClick={() => setIsShareableLinkOpen("opacity-1 fadeIn")}>Get Shareable Link</button>
+          </div>
         </div>
       )
     }
@@ -77,6 +84,8 @@ export default function NavBar(props) {
       <Modal fadeType={isUsersModalOpen} setFadeType={setIsUsersModalOpen} headerText="Attending Users" 
           body={usersModalBody} letEscape={true} bodyProps="break-none" submitButtonText="Close"
           modalCloseCallback={()=>{setIsUsersModalOpen("opacity-0 fadeOut")}}/>
+
+      <ShareableLinkModal sessionId={props.sessionId} isShareableLinkOpen={isShareableLinkOpen} setIsShareableLinkOpen={setIsShareableLinkOpen}/>
     </div>
   )
 }
