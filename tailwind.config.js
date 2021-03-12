@@ -15,7 +15,8 @@ module.exports = {
       },
       width: {
         "85w": "85vw",
-        '30w': '30vw'
+        '30w': '30vw',
+        '60w': '60vw'
       },
       boxShadow: {
         custom: 'inset 1px 0px #ffffff, inset 0px 1px #ffffff, inset -1px 0px #ffffff, 0px 2px rgba(31, 41, 55, 1)',

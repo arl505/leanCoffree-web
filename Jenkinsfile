@@ -17,7 +17,7 @@ pipeline {
         }
       }
       steps {
-        sh "cp -r build /usr/share/nginx/leanCoffreeDev/"
+        sh "cp -r build /usr/share/nginx/leanCoffree/"
       }
     }
   }
