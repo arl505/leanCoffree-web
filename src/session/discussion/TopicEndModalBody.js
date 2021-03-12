@@ -23,7 +23,7 @@ export default function TopicEndModalBody(props) {
         <p className="mt-2">Moderator Final Say</p>
         <div className="mt-2 flex justify-between">
           <div>
-            <select className="bg-transparent mr-1" value={moreTimeValue} onChange={(event) => setMoreTimeValue(event.target.value)}>
+            <select className="bg-gray-500 mr-1" value={moreTimeValue} onChange={(event) => setMoreTimeValue(event.target.value)}>
               <option value="30s">30s</option>
               <option selected="selected" value="1m">1m</option>
               <option value="3m">3m</option>
@@ -33,11 +33,11 @@ export default function TopicEndModalBody(props) {
               <option value="30m">30m</option>
               <option value="1h">1h</option>
             </select>
-            <button onClick={addTime} type="button" className="bg-green-500 text-white-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:bg-green-600 focus:bg-green-700">
+            <button onClick={addTime} type="button" className="bg-green-500 text-white-600 font-bold uppercase text-sm px-3 py-3 rounded shadow hover:bg-green-600 focus:bg-green-700">
               Add {moreTimeValue}
             </button>
           </div>
-          <button onClick={props.loadNextTopic} type="button" className="bg-blue-500 text-white-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:bg-blue-600 focus:bg-blue-700">
+          <button onClick={props.loadNextTopic} type="button" className="bg-blue-500 text-white-600 font-bold uppercase text-sm px-3 py-3 rounded shadow hover:bg-blue-600 focus:bg-blue-700">
             End Topic
           </button>
         </div>
@@ -56,13 +56,13 @@ export default function TopicEndModalBody(props) {
   return (
     <div>
       <div className="my-2 flex justify-between">
-        <span className="mr-20">Add Time Votes: {addCount}</span>
+        <span className="mr-20">Add Time: {addCount}</span>
         <button onClick={() => castVote('MORE_TIME')} type="button" className="bg-green-500 text-white-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:bg-green-600 focus:bg-green-700">
           Add Time
         </button>
       </div>
       <div className="my-2 flex justify-between">
-        <span>End Topic Votes: {endCount}</span>
+        <span>End Topic: {endCount}</span>
         <button onClick={() => castVote('FINISH_TOPIC')} type="button" className="bg-blue-500 text-white-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:bg-blue-600 focus:bg-blue-700">
           End Topic
         </button>
