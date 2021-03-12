@@ -93,7 +93,7 @@ export default function Session(props) {
       <div className="pt-3">
   
         {/*Nav Bar*/}
-        <NavBar shortText={true} showUserButton={username !== ""} users={usersInAttendance} showNextSectionButton={showNextSectionButton} confirmTransitionToNextSection={confirmTransitionToNextSection}/>
+        <NavBar shortText={true} showUserButton={username !== ""} users={usersInAttendance} showNextSectionButton={showNextSectionButton} confirmTransitionToNextSection={confirmTransitionToNextSection} userDisplayName={username}/>
 
         {/*Active Tab*/}
         {

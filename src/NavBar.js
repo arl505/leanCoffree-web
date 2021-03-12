@@ -1,5 +1,7 @@
 import React from 'react'
 import usersImage from './assets/usersImg.png'
+import whiteCrown from './assets/whiteCrown.png'
+import blueCrown from './assets/blueCrown.png'
 import Modal from './Modal'
 
 export default function NavBar(props) {
@@ -34,11 +36,30 @@ export default function NavBar(props) {
       
       for(let i = 0; props.users.displayNames !== undefined && i < props.users.displayNames.length; i++) {
         let username = props.users.displayNames[i];
-        allHereListItems.push(<li key={i.toString()} class="usernameListItem">{username}</li>);
+        let userColor = username === props.userDisplayName
+          ? "text-blue-300"
+          : "text-white"
+
+        allHereListItems.push(
+          <div key={i.toString()} className="flex justify-between items-center">
+            <div className={userColor}>
+              {props.users.moderator.includes(username) === true && username === props.userDisplayName
+                ? <img className="h-4" src={blueCrown} alt="blue crown icon, blue indicating you, crown indicating moderator"/>
+                : props.users.moderator.includes(username)
+                  ? <img className="h-4" src={whiteCrown} alt="white crown icon indicating moderator"/>
+                  : <p className="pl-1">•</p>}
+            </div>
+            <div className={userColor}>
+              {username}
+            </div>
+          </div>
+        );
       }
 
       return (
-        <ul className="text-left list-disc list-inside">{allHereListItems}</ul>
+        <div>
+          {allHereListItems}
+        </div>
       )
     }
   }
