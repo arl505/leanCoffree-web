@@ -13,11 +13,11 @@ pipeline {
     stage("Deploy: Frontend") {
       when {
         expression {
-           env.BRANCH_NAME == "main"
+           env.BRANCH_NAME == "pushToProd"
         }
       }
       steps {
-        sh "cp -r build /usr/share/nginx/leanCoffreeDev/"
+        sh "cp -r build /usr/share/nginx/leanCoffree/"
       }
     }
   }
