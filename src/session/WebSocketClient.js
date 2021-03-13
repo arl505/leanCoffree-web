@@ -21,6 +21,7 @@ class WebSocketClient extends React.Component {
             (payload) => {
               if(payload.body === "") {
                 if(!this.props.usersInAttendance.moderator.includes(this.props.username)) {
+                  this.props.setTopics({})
                   this.props.setAlertText("The moderator has ended the session. All session data has been deleted. Click okay to be redirected or close the window to exit")
                   this.props.setConfirmationCallback(() => () => {return window.location = process.env.REACT_APP_FRONTEND_BASEURL})
                   this.props.setCallbackWithoutConfirmation(true)

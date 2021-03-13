@@ -23,7 +23,11 @@ class Discussion extends React.Component {
         const timestamp = Date.parse(this.props.topics.currentDiscussionItem.endTime)
         let secondsLeft = Math.max(0, Math.round((timestamp - Date.now()) / 1000))
         let result = this.getTimerStringFromSecondsLeft(secondsLeft)
-        this.setState({timerString: result})
+        if (this.state.timerString !== result) {
+          this.setState({timerString: result})
+        }
+      } else if (this.state.timerString !== "") {
+        this.setState({timerString: ""})
       }
     }, 500);
   }
